@@ -1,4 +1,9 @@
-# it-app-two
+# IT310: E-Commerce Project
+## Group Members
+Shreena Mehta | Shivangini Satyam | Kruti Patel | sj626 (add your name here) | Reybel Candelaria
+
+## Project Description
+Someone write a short description here.
 
 ## Project setup
 ```
