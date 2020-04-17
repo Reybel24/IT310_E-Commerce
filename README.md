@@ -1,6 +1,6 @@
 # IT310: E-Commerce Project
 ## Group Members
-Shreena Mehta | Shivangini Satyam | Kruti Patel | sj626 (add your name here) | Reybel Candelaria
+Shreena Mehta | Shivangini Satyam | Kruti Patel | Shola Jolaosho | Reybel Candelaria
 
 ## Project Description
 Someone write a short description here.
