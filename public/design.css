@@ -1,0 +1,160 @@
+@import url(https://fonts.googleapis.com/css?family=Carter+One);
+
+* {
+  margin: 0;
+  font-family: "Carter One";
+}
+
+.main-wrapper .header {
+  position: relative;
+  background-image: url("https://steemitimages.com/DQmXt2P9vCwTYKQYFEkaJbJg7mFc5U9AoGUfEJ68hN39Mz5/mood002_bw.jpg");
+  background-size: cover;
+  height: 30em;
+  width: fit;
+}
+
+.main-wrapper .header h1 {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: yellow;
+  font-size: 6em;
+  text-shadow: 2px 4px 5px rgba(0, 0, 0, 1), -2px -4px 5px rgba(0, 0, 0, 1);
+}
+
+.main-wrapper #vue .caps .cap {
+  display: inline-block;
+  margin: 0.75em;
+  width: 100%;
+  max-width: 18em;
+}
+
+.main-wrapper #vue .caps .cap .title {
+  font-size: 1.25em;
+}
+
+button {
+  padding: 0.8em;
+  margin: 0.8em 0;
+  background: black;
+  border: 2px solid yellow;
+  font-size: 10px;
+  cursor: pointer;
+  color: yellow;
+}
+
+.main-wrapper #vue .caps .cap .img {
+  width: 18em;
+  height: 18em;
+  margin-bottom: 0.5em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-transition: box-shadow 0.5s;
+  transition: box-shadow 0.5s;
+}
+
+.main-wrapper #vue {
+  margin: 1 auto;
+  padding: 1em;
+  text-align: center;
+}
+
+.main-wrapper #vue .cart {
+  position: fixed;
+  right: -1em;
+  top: 0em;
+  text-align: right;
+  background: rgba(0, 0, 0, 0.85);
+  color: yellow;
+  z-index: 1;
+}
+
+.main-wrapper #vue .cart .fa-shopping-cart, .main-wrapper #vue .cart {
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.main-wrapper #vue .cart .fa-shopping-cart {
+  padding: 0 1em 0 0;
+}
+
+.main-wrapper #vue .cart {
+  padding: 0 1em 0 1em;
+}
+
+.main-wrapper #vue .cart .cart-items .cartTotal {
+  border-top: 2px solid white;
+  font-size: 1.5em;
+}
+
+.main-wrapper #vue .cart .cart-items {
+  padding: 0 1em 1em 1em;
+}
+
+.main-wrapper #vue .cart .cart-items .clearCart {
+  float: left;
+  margin-top: 1;
+  margin-bottom: 1em;
+}
+
+.main-wrapper #vue .caps .cap .img:hover {
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1), 0 15px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.main-wrapper #vue .popupWrapper .popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1em;
+  text-align: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 3;
+}
+
+.main-wrapper #vue .popupWrapper .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+}
+
+.main-wrapper #vue .popupWrapper .popup .imgWrapper {
+  width: 25em;
+  height: 25em;
+  margin: 0.5em auto;
+  overflow: hidden;
+}
+
+.main-wrapper #vue .popupWrapper .popup .imgWrapper .img {
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  cursor: default;
+}
+
+input {
+  padding: 0.5em;
+  margin: 0.5em 0.5em 0.5em 0;
+  width: 50px;
+  background: white;
+  border: 1px solid black;
+  font-size: 14px;
+}
+
+.checkout-section table {
+  margin: 0 auto;
+  padding: 1em;
+  width: 100%;
+  max-width: 50em;
+  text-align: center;
+}
