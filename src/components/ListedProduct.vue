@@ -1,18 +1,18 @@
 <template>
   <div class="product">
-    <div class="img">
+    <div class="img" :class="{ 'bg-blur': !this.hasData() }">
       <img :src="this.getProductImg()" />
     </div>
     <div class="info">
-      <div class="name strong">{{ this.data.name }}</div>
-      <div class="description">{{ this.data.description }}</div>
-      <rating-stars :rating="data.rating" />
+      <div class="name strong" :class="{ 'bg-blur': !this.hasData() }">{{ (this.data) ? this.data.name : "Loading..." }}</div>
+      <div class="description" :class="{ 'bg-blur': !this.hasData() }">{{ (this.data) ? this.data.description: "Loading description" }}</div>
+      <rating-stars :rating="data.rating" v-if="this.data" />
       <div class="bottom">
-        <div class="price strong">
-          {{ Math.floor(this.data.price) }}
-          <span class="cents">{{ (this.data.price % 1).toFixed(2).toString().slice(2) }}</span>
+        <div class="price strong" :class="{ 'bg-blur': !this.hasData() }">
+          {{ (this.data) ? Math.floor(this.data.price) : "199" }}
+          <span class="cents">{{ (this.data) ? (this.data.price % 1).toFixed(2).toString().slice(2) : "99"}}</span>
         </div>
-        <rounded-button name="ADD TO CART" />
+        <rounded-button name="ADD TO CART" v-if="this.hasData()" />
       </div>
     </div>
   </div>
@@ -29,7 +29,12 @@ export default {
     data: {
       type: Object,
       default: () => {},
-      required: true
+      required: false
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   components: {
@@ -38,8 +43,18 @@ export default {
   },
   methods: {
     getProductImg() {
-      if (!this.data.img) return null;
+      if (!this.data) return;
+      if (Object.prototype.hasOwnProperty.call(this.data, "img") == false) {
+        console.log("blah")
+        return null;
+      }
       return require("@/assets/products/" + this.data.img);
+    },
+    hasData() {
+      if (this.data != undefined && this.data != null) {
+        return true;
+      }
+      return false;
     }
   }
 };
@@ -101,5 +116,10 @@ export default {
 .info .price > .cents {
   font-size: .7em;
   padding: 1px 0px 0px 3px;
+}
+
+.bg-blur {
+  background-color: $lighter-grey;
+  color: $lighter-grey !important;
 }
 </style>

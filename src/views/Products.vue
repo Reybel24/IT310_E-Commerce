@@ -5,7 +5,9 @@
       <div class="filters"></div>
       <div class="products-results">
         <listed-product v-for="product in this.products" :key="product.id" :data="product" />
-        <div class="loading" v-if="this.products.length < 1">Loading products...</div>
+        <div class="loading" v-if="this.products.length < 1">
+          <listed-product v-for="product in 12" :key="product.id" />
+        </div>
       </div>
     </div>
   </div>
@@ -25,7 +27,7 @@ export default {
   },
   data() {
     return {
-      products: []
+      products: [],
     };
   },
   methods: {
@@ -72,7 +74,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-.products-results > .product {
+.products-results .product {
   margin: 8px;
+}
+.loading {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
