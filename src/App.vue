@@ -31,12 +31,12 @@ body {
   text-align: center;
   color: #2c3e50;
   overflow-x: hidden;
+  height: 100vh;
 }
 
 .content {
   display: flex;
-  padding: 2%;
-  max-width: 2200px;
-  align-items: center;
+  padding: 20px;
+  flex-grow: 1;
 }
 </style>

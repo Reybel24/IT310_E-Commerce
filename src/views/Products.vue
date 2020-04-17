@@ -13,6 +13,7 @@
             v-on:click="toggleTag(tag)"
           >{{ tag.name }}</div>
         </div>
+        <div class="mid-header">Products > All (Showing {{ this.products_filtered.length }} items)</div>
         <div class="products-results">
           <listed-product
             v-for="product in this.products_filtered"
@@ -22,6 +23,7 @@
           <div class="loading" v-if="this.products.length < 1">
             <listed-product v-for="product in 12" :key="product.id" />
           </div>
+          <div class="no-results" v-if="this.isReady && this.products_filtered < 1">No matching items</div>
         </div>
       </div>
     </div>
@@ -46,7 +48,8 @@ export default {
     return {
       products: [],
       products_filtered: [],
-      filter_tags: []
+      filter_tags: [],
+      isReady: false,
     };
   },
   methods: {
@@ -59,6 +62,7 @@ export default {
 
       this.products = api_data.getProducts();
       this.products_filtered = this.products;
+      this.isReady = true;
       // console.log(this.products);
     },
     generateTags() {
@@ -153,6 +157,7 @@ export default {
 .products {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .header {
   padding: 5px 0px 10px 0px;
@@ -160,6 +165,7 @@ export default {
 }
 .main {
   width: 100%;
+  flex-grow: 1;
 }
 .filters {
   width: 300px;
@@ -170,15 +176,19 @@ export default {
 .right {
   flex-direction: column;
   padding: 0px 10px 10px 30px;
+  
 }
 
 .products-results {
   padding: 10px 10px 10px 0px;
+  margin-top: 0px;
   display: flex;
   flex-wrap: wrap;
+  flex-grow: 1;
+  align-content: flex-start;
 }
 .products-results .product {
-  margin: 8px;
+  margin: 8px 16px 8px 0px;
 }
 .loading {
   display: flex;
@@ -203,5 +213,9 @@ export default {
 .tag.selected {
   background-color: $blue;
   color: white;
+}
+
+.mid-header {
+  margin-top: 20px;
 }
 </style>

@@ -68,7 +68,7 @@ export default {
 .product {
   display: flex;
   width: 445px;
-  height: 200px;
+  height: 210px;
   box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.05);
   outline: 1px solid rgb(245, 245, 245);
   flex-direction: row;
@@ -84,13 +84,20 @@ export default {
 /* Product information UI */
 .img {
   width: 35%;
-  padding: 10px 20px 20px 20px;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
 }
 .img > img {
-  max-width: 95%;
-  width: auto;
-  height: auto;
+  width: 95%;
+  height: 95%;
+  object-fit: contain;
+  transition: .2s;
 }
+.product:hover > .img > img {
+  transform: scale(1.1, 1.1);
+}
+
 .info {
   display: flex;
   flex-direction: column;
@@ -120,7 +127,7 @@ export default {
 }
 .info .price > .cents {
   font-size: .7em;
-  padding: 1px 0px 0px 3px;
+  padding: 1px 0px 0px 2px;
 }
 
 .tags {
