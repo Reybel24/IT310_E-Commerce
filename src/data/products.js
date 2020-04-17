@@ -20,7 +20,11 @@ var data = {
                 description: "A fancy hat",
                 price: 5.99,
                 img: "014-hat.png",
-                rating: 2
+                rating: 2,
+                tags: [
+                    "hat",
+                    "blue",
+                ]
             },
             {
                 id: 2,
@@ -28,7 +32,12 @@ var data = {
                 description: "A fancy pair of shoes",
                 price: 29.5,
                 img: "015-high heels.png",
-                rating: 5
+                rating: 5,
+                tags: [
+                    "shoes",
+                    "heels",
+                    "red",
+                ]
             },
             {
                 id: 3,
@@ -36,7 +45,10 @@ var data = {
                 description: "Cute women's pajamas",
                 price: 29.5,
                 img: "008-pajamas.png",
-                rating: 4.5
+                rating: 4.5,
+                tags: [
+                    "pjs",
+                ]
             },
             {
                 id: 4,
@@ -76,7 +88,11 @@ var data = {
                 description: "A winter hat",
                 price: 12.99,
                 img: "030-wool hat.png",
-                rating: 5
+                rating: 5,
+                tags: [
+                    "hat",
+                    "red"
+                ]
             },
             {
                 id: 9,

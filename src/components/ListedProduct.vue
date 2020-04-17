@@ -14,6 +14,10 @@
         </div>
         <rounded-button name="ADD TO CART" v-if="this.hasData()" />
       </div>
+      <div class="tags">
+        <div class="tag" v-for="(tag, index) in this.data.tags" :key="index">{{ tag }}</div>
+        <div class="tag empty" v-if="!this.data.tags || this.data.tags.length < 1">No tags</div>
+      </div>
     </div>
   </div>
 </template>
@@ -91,7 +95,7 @@ export default {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 20px 20px 40px 15px;
+  padding: 20px 20px 22px 15px;
   font-size: 1em;
   color: $black;
 }
@@ -109,6 +113,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 11px;
 }
 .info .price {
   font-size: 1.2em;
@@ -116,6 +121,31 @@ export default {
 .info .price > .cents {
   font-size: .7em;
   padding: 1px 0px 0px 3px;
+}
+
+.tags {
+  margin-top: auto;
+  width: 100%;
+  flex-wrap: wrap;
+  
+}
+.tags .tag {
+  padding: 3px 9px 3px 9px;
+  background-color: $purple;
+  border-radius: 20px;
+  margin-right: 5px;
+  color: white;
+  font-size: .8em;
+  opacity: .7;
+  transition: .1s;
+  margin-bottom: 3px;
+}
+.tags .tag:hover {
+  opacity: 1;
+}
+.tags .tag.empty {
+  background-color: $light-grey;
+  color: white;
 }
 
 .bg-blur {
