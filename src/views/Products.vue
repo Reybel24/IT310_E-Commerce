@@ -21,9 +21,12 @@
             :data="product"
           />
           <div class="loading" v-if="this.products.length < 1">
-            <listed-product v-for="product in 12" :key="product.id" />
+            <listed-product v-for="product in this.randomIntFromInterval(2, 12)" :key="product.id" />
           </div>
-          <div class="no-results" v-if="this.isReady && this.products_filtered < 1">No matching items</div>
+          <div
+            class="no-results"
+            v-if="this.isReady && this.products_filtered < 1"
+          >No matching items</div>
         </div>
       </div>
     </div>
@@ -49,7 +52,7 @@ export default {
       products: [],
       products_filtered: [],
       filter_tags: [],
-      isReady: false,
+      isReady: false
     };
   },
   methods: {
@@ -58,7 +61,7 @@ export default {
     },
     async loadProducts() {
       // Simulate API call Wait
-      await this.delay(1000);
+      await this.delay(750);
 
       this.products = api_data.getProducts();
       this.products_filtered = this.products;
@@ -140,6 +143,9 @@ export default {
     },
     getSelectedTags() {
       return this.filter_tags.filter(tag => tag.selected);
+    },
+    randomIntFromInterval(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
     }
   },
   mounted() {
@@ -176,7 +182,6 @@ export default {
 .right {
   flex-direction: column;
   padding: 0px 10px 10px 30px;
-  
 }
 
 .products-results {
