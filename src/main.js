@@ -7,7 +7,13 @@ Vue.config.productionTip = false
 
 // Styles
 import "@/styles/main.scss";
-// import "@/scss/colors.css";
+
+// Use Font awesome icons
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({
   router,

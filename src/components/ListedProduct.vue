@@ -6,12 +6,20 @@
     <div class="info">
       <div class="name">{{ this.data.name }}</div>
       <div class="description">{{ this.data.description }}</div>
-      <div class="price strong">${{ this.data.price }}</div>
+      <rating-stars :rating="data.rating" />
+      <div class="bottom">
+        <div class="price strong">${{ this.data.price }}</div>
+        <rounded-button name="ADD TO CART" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// UI Components
+import RoundedButton from "@/components/UI/RoundedButton.vue";
+import RatingStars from "@/components/UI/RatingStars.vue";
+
 export default {
   name: "listed-product",
   props: {
@@ -21,8 +29,10 @@ export default {
       required: true
     }
   },
-  components: {},
-
+  components: {
+    RoundedButton,
+    RatingStars
+  },
   methods: {
     getProductImg() {
       if (!this.data.img) return null;
@@ -35,14 +45,18 @@ export default {
 <style lang="scss" scoped>
 .product {
   display: flex;
-  width: 480px;
-  min-width: 285px;
+  width: 445px;
   height: 200px;
-  box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.1);
+  box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.05);
   outline: 1px solid rgb(245, 245, 245);
   flex-direction: row;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.product:hover {
+  box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.15);
 }
 
 /* Product information UI */
@@ -63,16 +77,22 @@ export default {
   font-size: 1em;
   color: $black;
 }
-.info > .name {
+.info .name {
   text-align: left;
 }
-.info > .description {
+.info .description {
   text-align: left;
   margin-top: 3px;
+  color: $light-grey;
+  font-size: .9em;
 }
-.info > .price {
-  text-align: left;
-  font-size: 1.2em;
+.bottom {
   margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.info .price {
+  font-size: 1.2em;
 }
 </style>
