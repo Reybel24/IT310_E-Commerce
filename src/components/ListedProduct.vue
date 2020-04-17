@@ -8,7 +8,10 @@
       <div class="description">{{ this.data.description }}</div>
       <rating-stars :rating="data.rating" />
       <div class="bottom">
-        <div class="price strong">${{ this.data.price }}</div>
+        <div class="price strong">
+          {{ Math.floor(this.data.price) }}
+          <span class="cents">{{ (this.data.price % 1).toFixed(2).toString().slice(2) }}</span>
+        </div>
         <rounded-button name="ADD TO CART" />
       </div>
     </div>
@@ -84,7 +87,7 @@ export default {
   text-align: left;
   margin-top: 3px;
   color: $light-grey;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 .bottom {
   margin-top: auto;
@@ -94,5 +97,9 @@ export default {
 }
 .info .price {
   font-size: 1.2em;
+}
+.info .price > .cents {
+  font-size: .7em;
+  padding: 1px 0px 0px 3px;
 }
 </style>
