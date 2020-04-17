@@ -1,14 +1,24 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/products">Products</router-link>
-    </div>
+    <Nav />
     <div class="content">
-      <router-view/>
+      <router-view />
     </div>
   </div>
 </template>
+
+<script>
+// Navigation bar
+import Nav from "@/components/Nav.vue";
+
+export default {
+  name: "#app",
+  components: {
+    Nav
+  },
+  methods: {}
+};
+</script>
 
 <style>
 body {
@@ -20,24 +30,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  overflow-x:hidden;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  overflow-x: hidden;
 }
 
 .content {
   display: flex;
   padding: 2%;
+  max-width: 2200px;
+  align-items: center;
 }
 </style>

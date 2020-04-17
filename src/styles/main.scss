@@ -4,6 +4,12 @@
 #app {
     font-family: 'Open Sans', sans-serif;
     background-color: $bgcolor;
+    flex-direction: column;
+}
+
+/* Make every div flex by default */
+div {
+    display: flex;
 }
 
 /* Text styles */

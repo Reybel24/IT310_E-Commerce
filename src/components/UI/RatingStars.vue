@@ -35,7 +35,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .rating-stars {
   display: flex;
   padding: 11px 11px 8px 0px;

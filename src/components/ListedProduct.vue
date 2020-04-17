@@ -4,7 +4,7 @@
       <img :src="this.getProductImg()" />
     </div>
     <div class="info">
-      <div class="name">{{ this.data.name }}</div>
+      <div class="name strong">{{ this.data.name }}</div>
       <div class="description">{{ this.data.description }}</div>
       <rating-stars :rating="data.rating" />
       <div class="bottom">
