@@ -19,11 +19,15 @@
             v-for="product in this.products_filtered"
             :key="product.id"
             :data="product"
+            v-on:add-to-cart="addToCart"
           />
           <div class="loading" v-if="this.products.length < 1">
-            <listed-product v-for="product in 12" :key="product.id" />
+            <listed-product v-for="product in this.randomIntFromInterval(2, 12)" :key="product.id" />
           </div>
-          <div class="no-results" v-if="this.isReady && this.products_filtered < 1">No matching items</div>
+          <div
+            class="no-results"
+            v-if="this.isReady && this.products_filtered < 1"
+          >No matching items</div>
         </div>
       </div>
     </div>
@@ -49,7 +53,9 @@ export default {
       products: [],
       products_filtered: [],
       filter_tags: [],
+      filter_tags_limit: 12,
       isReady: false,
+      cart: []
     };
   },
   methods: {
@@ -58,7 +64,7 @@ export default {
     },
     async loadProducts() {
       // Simulate API call Wait
-      await this.delay(1000);
+      await this.delay(750);
 
       this.products = api_data.getProducts();
       this.products_filtered = this.products;
@@ -88,6 +94,9 @@ export default {
 
       //  Sort list by frequency
       this.filter_tags.sort((a, b) => (a.frequency > b.frequency ? -1 : 1));
+
+      // Trim list
+      this.filter_tags = this.filter_tags.slice(0, this.filter_tags_limit);
 
       console.log(this.filter_tags);
     },
@@ -140,6 +149,53 @@ export default {
     },
     getSelectedTags() {
       return this.filter_tags.filter(tag => tag.selected);
+    },
+    randomIntFromInterval(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    },
+    addToCart(prod) {
+      console.log("Added " + prod.name + " to cart.");
+      // Check if item already in cart
+      var _item = this.itemInCart(prod.id);
+      if (_item) {
+        // Increase count by 1
+        _item.count++;
+      } else {
+        // Add new item
+        this.cart.push({
+          id: prod.id,
+          name: prod.name,
+          price: prod.price,
+          count: 1
+        });
+      }
+
+      // Calculate new total
+      var total = this.calculateCartTotal();
+
+      // console.log(this.cart);
+      console.log("Your total is: $" + total);
+    },
+    removeFromCart() {
+      // Not implemented yet
+    },
+    itemInCart(prodId) {
+      for (let item of this.cart) {
+        if (prodId == item.id) {
+          return item;
+        }
+      }
+      return false;
+    },
+    clearCart() {
+      this.cart = [];
+    },
+    calculateCartTotal() {
+      var totalCost = 0;
+      for (let item of this.cart) {
+        totalCost += item.price * item.count;
+      }
+      return totalCost.toFixed(2);
     }
   },
   mounted() {
@@ -176,7 +232,6 @@ export default {
 .right {
   flex-direction: column;
   padding: 0px 10px 10px 30px;
-  
 }
 
 .products-results {

@@ -1,5 +1,5 @@
 <template>
-  <div class="btn">
+  <div class="btn" v-on:click="onPress">
     <font-awesome-icon :icon="['fa', 'shopping-cart']" class="icon" />
     <div class="name strong">{{ this.name }}</div>
   </div>
@@ -20,6 +20,9 @@ export default {
     getProductImg() {
       if (!this.data.img) return null;
       return require("@/assets/products/" + this.data.img);
+    },
+    onPress() {
+      this.$emit("press");
     }
   }
 };
