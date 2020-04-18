@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
     <div class="app-name strong">
-      <font-awesome-icon :icon="['fa', 'hat-cowboy']" class="icon" />The Hat Warehouse
+      <font-awesome-icon :icon="['fa', 'hat-cowboy']" class="icon" />Caps Locker
     </div>
 
     <search-bar />

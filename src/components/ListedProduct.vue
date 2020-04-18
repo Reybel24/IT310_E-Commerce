@@ -1,22 +1,30 @@
 <template>
   <div class="product">
     <div class="img" :class="{ 'bg-blur': !this.hasData() }">
-      <img :src="this.getProductImg()" />
+      <img :src="this.getProductImg()" v-if="this.hasData()" />
     </div>
     <div class="info">
-      <div class="name strong" :class="{ 'bg-blur': !this.hasData() }">{{ (this.data) ? this.data.name : "Loading..." }}</div>
-      <div class="description" :class="{ 'bg-blur': !this.hasData() }">{{ (this.data) ? this.data.description: "Loading description" }}</div>
+      <div
+        class="name strong"
+        :class="{ 'bg-blur': !this.hasData() }"
+      >{{ (this.data) ? this.data.name : "Loading..." }}</div>
+      <div
+        class="description"
+        :class="{ 'bg-blur': !this.hasData() }"
+      >{{ (this.data) ? this.data.description: "Loading description" }}</div>
       <rating-stars :rating="data.rating" v-if="this.data" />
       <div class="bottom">
         <div class="price strong" :class="{ 'bg-blur': !this.hasData() }">
-          {{ (this.data) ? Math.floor(this.data.price) : "199" }}
-          <span class="cents">{{ (this.data) ? (this.data.price % 1).toFixed(2).toString().slice(2) : "99"}}</span>
+          ${{ (this.data) ? Math.floor(this.data.price) : "199" }}
+          <span
+            class="cents"
+          >{{ (this.data) ? (this.data.price % 1).toFixed(2).toString().slice(2) : "99"}}</span>
         </div>
-        <rounded-button name="ADD TO CART" v-if="this.hasData()" />
+        <rounded-button name="ADD TO CART" v-if="this.hasData()" v-on:press="pressAddToCart" />
       </div>
       <div class="tags">
-        <div class="tag" v-for="(tag, index) in this.data.tags" :key="index">{{ tag }}</div>
-        <div class="tag empty" v-if="!this.data.tags || this.data.tags.length < 1">No tags</div>
+        <div class="tag" v-for="(tag, index) in this.getTags()" :key="index">{{ tag }}</div>
+        <div class="tag empty" v-if="this.hasData() && (!this.data.tags || this.data.tags.length < 1)">No tags</div>
       </div>
     </div>
   </div>
@@ -49,7 +57,7 @@ export default {
     getProductImg() {
       if (!this.data) return;
       if (Object.prototype.hasOwnProperty.call(this.data, "img") == false) {
-        console.log("blah")
+        console.log("blah");
         return null;
       }
       return require("@/assets/products/" + this.data.img);
@@ -59,6 +67,20 @@ export default {
         return true;
       }
       return false;
+    },
+    getTags() {
+      if (this.hasData()) {
+        if (this.data.tags) {
+          return this.data.tags;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
+    },
+    pressAddToCart() {
+      this.$emit("add-to-cart", this.data);
     }
   }
 };
@@ -70,12 +92,13 @@ export default {
   width: 445px;
   height: 210px;
   box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.05);
-  outline: 1px solid rgb(245, 245, 245);
+  border: 1px solid rgb(245, 245, 245);
   flex-direction: row;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
   transition: 0.2s;
+  background-color: white;
 }
 .product:hover {
   box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.15);
@@ -92,7 +115,7 @@ export default {
   width: 95%;
   height: 95%;
   object-fit: contain;
-  transition: .2s;
+  transition: 0.2s;
 }
 .product:hover > .img > img {
   transform: scale(1.1, 1.1);
@@ -126,7 +149,7 @@ export default {
   font-size: 1.2em;
 }
 .info .price > .cents {
-  font-size: .7em;
+  font-size: 0.7em;
   padding: 1px 0px 0px 2px;
 }
 
@@ -134,7 +157,6 @@ export default {
   margin-top: auto;
   width: 100%;
   flex-wrap: wrap;
-  
 }
 .tags .tag {
   padding: 3px 9px 3px 9px;
@@ -142,9 +164,9 @@ export default {
   border-radius: 20px;
   margin-right: 5px;
   color: white;
-  font-size: .8em;
-  opacity: .7;
-  transition: .1s;
+  font-size: 0.8em;
+  opacity: 0.7;
+  transition: 0.1s;
   margin-bottom: 3px;
 }
 .tags .tag:hover {
