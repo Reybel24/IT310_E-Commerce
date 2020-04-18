@@ -194,6 +194,7 @@ var data = {
                 tags: [
                     "jacket",
                     "gucci",
+                    "winter",
                 ]
             },
         ]

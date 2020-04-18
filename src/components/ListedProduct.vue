@@ -20,7 +20,7 @@
             class="cents"
           >{{ (this.data) ? (this.data.price % 1).toFixed(2).toString().slice(2) : "99"}}</span>
         </div>
-        <rounded-button name="ADD TO CART" v-if="this.hasData()" />
+        <rounded-button name="ADD TO CART" v-if="this.hasData()" v-on:press="pressAddToCart" />
       </div>
       <div class="tags">
         <div class="tag" v-for="(tag, index) in this.getTags()" :key="index">{{ tag }}</div>
@@ -78,6 +78,9 @@ export default {
       } else {
         return [];
       }
+    },
+    pressAddToCart() {
+      this.$emit("add-to-cart", this.data);
     }
   }
 };
