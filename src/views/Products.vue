@@ -31,6 +31,8 @@
         </div>
       </div>
     </div>
+    <toast :title="this.toast.title" v-if="1==2" />
+    <div class="toasts-container" ref="toastsContainer"></div>
   </div>
 </template>
 
@@ -38,15 +40,19 @@
 // Product card
 import ListedProduct from "@/components/ListedProduct.vue";
 
+// Toast notification
+import Toast from "@/components/Toast.vue";
+
 // Products data (this will eventually be pulled from API instead)
 import api_data from "@/data/products.js";
 
-// import Vue from "vue";
+import Vue from "vue";
 
 export default {
   name: "products",
   components: {
-    ListedProduct
+    ListedProduct,
+    Toast
   },
   data() {
     return {
@@ -153,39 +159,15 @@ export default {
     randomIntFromInterval(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
-    addToCart(prod) {
-      console.log("Added " + prod.name + " to cart.");
-      // Check if item already in cart
-      var _item = this.itemInCart(prod.id);
-      if (_item) {
-        // Increase count by 1
-        _item.count++;
-      } else {
-        // Add new item
-        this.cart.push({
-          id: prod.id,
-          name: prod.name,
-          price: prod.price,
-          count: 1
-        });
-      }
-
-      // Calculate new total
-      var total = this.calculateCartTotal();
-
-      // console.log(this.cart);
-      console.log("Your total is: $" + total);
+    addToCart(item) {
+      this.$store.dispatch({
+        type: "addItemToCart",
+        item: item
+      });
+      this.createToast(item.name + " added to cart!", item.img);
     },
     removeFromCart() {
       // Not implemented yet
-    },
-    itemInCart(prodId) {
-      for (let item of this.cart) {
-        if (prodId == item.id) {
-          return item;
-        }
-      }
-      return false;
     },
     clearCart() {
       this.cart = [];
@@ -193,9 +175,21 @@ export default {
     calculateCartTotal() {
       var totalCost = 0;
       for (let item of this.cart) {
-        totalCost += item.price * item.count;
+        totalCost += item.price * item.quantity;
       }
       return totalCost.toFixed(2);
+    },
+    createToast(title, img) {
+      var ComponentClass = Vue.extend(Toast);
+      var instance = new ComponentClass({
+        propsData: {
+          title: title,
+          img: img
+        }
+      });
+      // instance.$slots.default = ["Click me!"];
+      instance.$mount(); // pass nothing
+      this.$refs.toastsContainer.appendChild(instance.$el);
     }
   },
   mounted() {
@@ -205,11 +199,25 @@ export default {
       // Generate some tags based on response
       _this.generateTags();
     });
+
+    // Listen to product added event
+    // EventBus.$on('item-added-to-cart', this.showToast());
+  },
+  created() {
+    // Subscribe to event
+    console.log("subscribed!");
+    this.$eventHub.$on("item-added-to-cart", function() {
+      console.log("WHYY");
+    });
+  },
+  beforeDestroy() {
+    // Unsubscribe from event
+    this.$eventHub.$off("item-added-to-cart");
   }
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .products {
   display: flex;
   flex-direction: column;
@@ -224,14 +232,20 @@ export default {
   flex-grow: 1;
 }
 .filters {
-  width: 300px;
   border: 1px solid rgb(214, 214, 214);
   border-radius: 5px;
   flex-shrink: 0;
+  display: none;
+  width: 300px;
+  @include lg {
+    display: flex;
+  }
 }
 .right {
   flex-direction: column;
   padding: 0px 10px 10px 30px;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 .products-results {
@@ -272,5 +286,27 @@ export default {
 
 .mid-header {
   margin-top: 20px;
+}
+
+/* Toast */
+.toasts-container {
+  flex-direction: column;
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+
+  .toast {
+    margin-top: 10px;
+  }
+}
+
+.toast-style {
+  background-color: white !important;
+  border-radius: 5px !important;
+  box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.05) !important;
+  border: 1px solid rgb(245, 245, 245) !important;
+  color: $grey !important;
+  width: 200px;
+  border-top: 3px solid $purple !important;
 }
 </style>

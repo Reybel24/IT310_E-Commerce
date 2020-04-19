@@ -1,5 +1,5 @@
 <template>
-  <div class="btn" v-on:click="onPress">
+  <div class="btn" :class="btnVariant" v-on:click="onPress">
     <font-awesome-icon :icon="['fa', 'shopping-cart']" class="icon" />
     <div class="name strong">{{ this.name }}</div>
   </div>
@@ -13,16 +13,25 @@ export default {
       type: String,
       default: "",
       required: false
+    },
+    variant: {
+      type: String,
+      default: "fill",
+      required: false
     }
   },
   components: {},
   methods: {
-    getProductImg() {
-      if (!this.data.img) return null;
-      return require("@/assets/products/" + this.data.img);
-    },
     onPress() {
       this.$emit("press");
+    }
+  },
+  computed: {
+    btnVariant: function () {
+      return {
+        "fill": (this.variant == "fill"),
+        "outline": (this.variant == "outline"),
+      }
     }
   }
 };
@@ -38,18 +47,35 @@ export default {
   transition: 0.12s;
   font-size: 0.75em;
   align-items: center;
-  border: 1px solid $blue;
-  opacity: .8;
+  opacity: 0.8;
+  justify-content: center;
+  cursor: pointer;
 }
 .btn:hover {
-  background-color: $blue;
-  color: white;
   opacity: 1;
 }
 .icon {
-    font-size: .9em;
+  font-size: 0.9em;
 }
 .name {
-    margin-left: 6px;
+  margin-left: 6px;
 }
+
+/* Variants */
+.fill {
+  background-color: $blue;
+  color: white;
+}
+.fill:hover {
+
+}
+
+.outline {
+  border: 1px solid $blue;
+}
+.outline:hover {
+  background-color: $blue;
+  color: white;
+}
+
 </style>
