@@ -36,6 +36,8 @@
       </div>
     </div>
 
+    <div class="cart-total" v-if="!cartIsEmpty()">TOTAL <div class="value strong">${{ this.$store.getters.cartTotal }}</div></div>
+
     <!-- Button: Go to checkout -->
     <rounded-button
       name="GO TO CHECKOUT"
@@ -125,6 +127,12 @@ export default {
       this.$store.dispatch({
         type: "clearCart"
       });
+    },
+    async getCartTotal() {
+      var total = await this.$store.dispatch({
+        type: "calcCartTotal"
+      });
+      return total;
     },
     close() {
       this.$emit("close");
@@ -266,6 +274,20 @@ export default {
   }
   .icon {
     font-size: 2em;
+  }
+}
+
+.cart-total {
+  color: $grey;
+  font-size: .6em;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 10px 0 0;
+
+  .value {
+    font-size: 1.2em;
+    padding: 0 0 0 6px;
+    color: $green;
   }
 }
 </style>

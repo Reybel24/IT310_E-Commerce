@@ -31,6 +31,9 @@ export default new Vuex.Store({
     incrementItemInCart(state, item) {
       item.quantity++;
     },
+    setCartTotal(state, amt) {
+      state.cartTotal = amt;
+    },
     clearCart(state) {
       state.cart = [];
     },
@@ -76,10 +79,15 @@ export default new Vuex.Store({
       }
       return null;
     },
-    calcCartTotal({ commit, state }) {
-      var total = + state.cart.map(item => {
-        return item.price * item.quantity
+  },
+  getters: {
+    // Calculate cart total
+    cartTotal: state => {
+      var totalCost = 0;
+      state.cart.map(item => {
+        totalCost += item.price * item.quantity
       });
+      return totalCost.toFixed(2);
     }
   },
   modules: {
