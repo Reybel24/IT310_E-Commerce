@@ -36,7 +36,10 @@
       </div>
     </div>
 
-    <div class="cart-total" v-if="!cartIsEmpty()">TOTAL <div class="value strong">${{ this.$store.getters.cartTotal }}</div></div>
+    <div class="cart-total" v-if="!cartIsEmpty()">
+      TOTAL
+      <div class="value strong">${{ this.$store.getters.cartTotal }}</div>
+    </div>
 
     <!-- Button: Go to checkout -->
     <rounded-button
@@ -279,7 +282,7 @@ export default {
 
 .cart-total {
   color: $grey;
-  font-size: .6em;
+  font-size: 0.6em;
   justify-content: flex-end;
   align-items: center;
   padding: 10px 10px 0 0;
