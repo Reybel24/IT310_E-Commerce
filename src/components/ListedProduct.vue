@@ -20,7 +20,7 @@
             class="cents"
           >{{ (this.data) ? (this.data.price % 1).toFixed(2).toString().slice(2) : "99"}}</span>
         </div>
-        <rounded-button name="ADD TO CART" v-if="this.hasData()" v-on:press="pressAddToCart" class="btn-add-to-cart" />
+        <rounded-button name="ADD TO CART" v-if="this.hasData()" v-on:press="pressAddToCart" class="btn-add-to-cart" :variant="'outline'" />
       </div>
       <div class="tags">
         <div class="tag" v-for="(tag, index) in this.getTags()" :key="index">{{ tag }}</div>
@@ -57,7 +57,6 @@ export default {
     getProductImg() {
       if (!this.data) return;
       if (Object.prototype.hasOwnProperty.call(this.data, "img") == false) {
-        console.log("blah");
         return null;
       }
       return require("@/assets/products/" + this.data.img);

@@ -11,6 +11,9 @@
 // Navigation bar
 import Nav from "@/components/Nav.vue";
 
+// Toast notifications
+// import Toast from "@/components/Toast.vue";
+
 export default {
   name: "#app",
   components: {
