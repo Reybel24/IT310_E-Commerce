@@ -20,7 +20,7 @@
             class="cents"
           >{{ (this.data) ? (this.data.price % 1).toFixed(2).toString().slice(2) : "99"}}</span>
         </div>
-        <rounded-button name="ADD TO CART" v-if="this.hasData()" v-on:press="pressAddToCart" />
+        <rounded-button name="ADD TO CART" v-if="this.hasData()" v-on:press="pressAddToCart" class="btn-add-to-cart" />
       </div>
       <div class="tags">
         <div class="tag" v-for="(tag, index) in this.getTags()" :key="index">{{ tag }}</div>
@@ -89,8 +89,8 @@ export default {
 <style lang="scss" scoped>
 .product {
   display: flex;
-  width: 445px;
-  height: 210px;
+  width: 98%;
+  min-height: 210px;
   box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.05);
   border: 1px solid rgb(245, 245, 245);
   flex-direction: row;
@@ -99,6 +99,20 @@ export default {
   cursor: pointer;
   transition: 0.2s;
   background-color: white;
+  min-width: 265px;
+  @include lg {
+    max-width: 620px;
+  }
+  @include xl {
+    width: 47%;
+    max-width: 585px;
+  }
+  @include rwd(1900) {
+    width: 32%;
+  }
+  @include rwd(2560) {
+    width: 24%;
+  }
 }
 .product:hover {
   box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.15);
@@ -144,6 +158,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 11px;
+  flex-wrap: wrap;
 }
 .info .price {
   font-size: 1.2em;
@@ -152,11 +167,18 @@ export default {
   font-size: 0.7em;
   padding: 1px 0px 0px 2px;
 }
+.btn-add-to-cart {
+  margin-top: 3px;
+}
 
 .tags {
   margin-top: auto;
-  width: 100%;
   flex-wrap: wrap;
+  display: none;
+  @include lg {
+    display: flex;
+    width: 100%;
+  }
 }
 .tags .tag {
   padding: 3px 9px 3px 9px;

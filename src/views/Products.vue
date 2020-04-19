@@ -224,14 +224,21 @@ export default {
   flex-grow: 1;
 }
 .filters {
-  width: 300px;
   border: 1px solid rgb(214, 214, 214);
   border-radius: 5px;
   flex-shrink: 0;
+  display: none;
+  width: 300px;
+  @include lg {
+    display: flex;
+    
+  }
 }
 .right {
   flex-direction: column;
   padding: 0px 10px 10px 30px;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 .products-results {
