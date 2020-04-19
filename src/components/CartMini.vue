@@ -1,7 +1,15 @@
 <template>
   <div class="cart" v-on-clickaway="close">
-    <div class="title strong" v-if="!cartIsEmpty()">YOUR CART ({{ this.$store.state.cart.length }})</div>
-    
+    <div class="head">
+      <div
+        class="title strong"
+        v-if="!cartIsEmpty()"
+      >YOUR CART ({{ this.$store.state.cart.length }})</div>
+      <div class="clear-cart strong" v-if="!cartIsEmpty()" v-on:click="clearCart()">
+        <font-awesome-icon :icon="['fa', 'times']" class="icon" />CLEAR
+      </div>
+    </div>
+
     <div class="items">
       <div class="item" v-for="(item, index) in this.$store.state.cart" :key="index">
         <div class="img">
@@ -59,7 +67,7 @@ export default {
   name: "cart-mini",
   props: {},
   components: {
-    RoundedButton,
+    RoundedButton
     // PerfectScrollbar
   },
   data() {
@@ -113,6 +121,11 @@ export default {
       }
       return false;
     },
+    clearCart() {
+      this.$store.dispatch({
+        type: "clearCart"
+      });
+    },
     close() {
       this.$emit("close");
     }
@@ -136,13 +149,35 @@ export default {
   min-height: 190px;
   flex-direction: column;
 }
-.ps {
-  max-height: 400px;
-}
-.title {
-  font-size: .5em;
-  color: $grey;
-  padding: 5px 0 0 20px;
+
+.head {
+  font-size: 0.5em;
+  color: grey;
+  padding: 5px 20px 0 20px;
+  justify-content: space-between;
+  align-content: center;
+
+  .title {
+  }
+  .clear-cart {
+    background-color: $light-grey;
+    padding: 3px 9px 3px 9px;
+    border-radius: 10px;
+    color: white;
+    opacity: 0.7;
+    transition: 0.2s;
+    cursor: pointer;
+    align-items: center;
+
+    .icon {
+      font-size: 1em;
+      margin-right: 4px;
+    }
+  }
+  .clear-cart:hover {
+    opacity: 1;
+    background-color: $purple;
+  }
 }
 
 .items {
@@ -166,7 +201,7 @@ export default {
       margin-bottom: 6px;
     }
     .cost {
-      font-size: .9em;
+      font-size: 0.9em;
     }
   }
 

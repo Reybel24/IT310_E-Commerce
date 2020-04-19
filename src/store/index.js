@@ -30,7 +30,10 @@ export default new Vuex.Store({
     },
     incrementItemInCart(state, item) {
       item.quantity++;
-    }
+    },
+    clearCart(state) {
+      state.cart = [];
+    },
   },
   actions: {
     async addItemToCart({ commit, state }, payload) {
@@ -60,6 +63,10 @@ export default new Vuex.Store({
 
       // Add new item to cart
       commit("removeFromCart", item);
+    },
+    async clearCart({ commit, state }) {
+      // Clear cart
+      commit("clearCart");
     },
     findItemInCart({ commit, state }, payload) {
       for (let item of state.cart) {
