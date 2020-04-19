@@ -153,39 +153,14 @@ export default {
     randomIntFromInterval(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
-    addToCart(prod) {
-      console.log("Added " + prod.name + " to cart.");
-      // Check if item already in cart
-      var _item = this.itemInCart(prod.id);
-      if (_item) {
-        // Increase count by 1
-        _item.count++;
-      } else {
-        // Add new item
-        this.cart.push({
-          id: prod.id,
-          name: prod.name,
-          price: prod.price,
-          count: 1
-        });
-      }
-
-      // Calculate new total
-      var total = this.calculateCartTotal();
-
-      // console.log(this.cart);
-      console.log("Your total is: $" + total);
+    addToCart(item) {
+      this.$store.dispatch({
+        type: "addItemToCart",
+        item: item
+      });
     },
     removeFromCart() {
       // Not implemented yet
-    },
-    itemInCart(prodId) {
-      for (let item of this.cart) {
-        if (prodId == item.id) {
-          return item;
-        }
-      }
-      return false;
     },
     clearCart() {
       this.cart = [];
@@ -193,7 +168,7 @@ export default {
     calculateCartTotal() {
       var totalCost = 0;
       for (let item of this.cart) {
-        totalCost += item.price * item.count;
+        totalCost += item.price * item.quantity;
       }
       return totalCost.toFixed(2);
     }
@@ -231,7 +206,6 @@ export default {
   width: 300px;
   @include lg {
     display: flex;
-    
   }
 }
 .right {

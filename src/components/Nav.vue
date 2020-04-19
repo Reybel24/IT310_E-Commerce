@@ -6,9 +6,19 @@
 
     <search-bar />
 
+    <!-- Shoppin cart (mini) -->
+    <transition name="fade">
+      <cart-mini v-if="cartIsOpen" v-on:close="cartIsOpen=false" />
+    </transition>
+
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/products">Products</router-link>
+      <font-awesome-icon
+        :icon="['fa', 'shopping-bag']"
+        class="cart"
+        v-on:click="toggleShoppingCart()"
+      />
     </div>
   </div>
 </template>
@@ -17,13 +27,26 @@
 // Search bar
 import SearchBar from "@/components/SearchBar.vue";
 
+// Mini cart
+import CartMini from "@/components/CartMini.vue";
+
 export default {
-  name: "nav",
+  name: "navbar",
   props: {},
-  components: {
-    SearchBar
+  data() {
+    return {
+      cartIsOpen: false
+    };
   },
-  methods: {}
+  components: {
+    SearchBar,
+    CartMini
+  },
+  methods: {
+    toggleShoppingCart() {
+      this.cartIsOpen = !this.cartIsOpen;
+    }
+  }
 };
 </script>
 
@@ -35,6 +58,8 @@ export default {
   border-bottom: 5px solid $dark-purple;
 }
 #nav {
+  display: flex;
+  align-items: center;
 }
 #nav a {
   font-weight: bold;
@@ -94,5 +119,24 @@ export default {
 }
 .btn-search:hover {
   opacity: 1;
+}
+
+.cart {
+  color: white;
+  font-size: 1.4em;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.cart:hover {
+  color: $dark-purple;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
