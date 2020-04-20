@@ -4,7 +4,7 @@
       <div
         class="title strong"
         v-if="!cartIsEmpty()"
-      >YOUR CART ({{ this.$store.state.cart.length }})</div>
+      >YOUR CART ({{ this.$store.getters.countItemsInCart }})</div>
       <div class="clear-cart strong" v-if="!cartIsEmpty()" v-on:click="clearCart()">
         <font-awesome-icon :icon="['fa', 'times']" class="icon" />CLEAR
       </div>
@@ -37,7 +37,7 @@
     </div>
 
     <div class="cart-total" v-if="!cartIsEmpty()">
-      TOTAL
+      SUBTOTAL
       <div class="value strong">${{ this.$store.getters.cartTotal }}</div>
     </div>
 
@@ -167,6 +167,7 @@ export default {
   padding: 5px 20px 0 20px;
   justify-content: space-between;
   align-content: center;
+  width: 90%;
 
   .title {
   }

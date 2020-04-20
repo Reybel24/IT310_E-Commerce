@@ -14,11 +14,10 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/products">Products</router-link>
-      <font-awesome-icon
-        :icon="['fa', 'shopping-bag']"
-        class="cart"
-        v-on:click="toggleShoppingCart()"
-      />
+      <div class="cart" v-on:click="toggleShoppingCart()">
+        <font-awesome-icon :icon="['fa', 'shopping-bag']" class="icon" />
+        <div class="text strong">{{ this.$store.getters.countItemsInCart }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -123,13 +122,29 @@ export default {
 
 .cart {
   color: white;
-  font-size: 1.4em;
   margin-left: 20px;
   cursor: pointer;
   transition: 0.15s;
+  
+  font-size: 1.4em;
+
+  .text {
+    color: white;
+    font-size: .6em;
+    margin-left: 5px;
+  }
+
+  .icon {
+    font-size: 1.6em;
+    margin-left: 10px;
+  }
 }
 .cart:hover {
   color: $dark-purple;
+  
+  .text {
+    color: white;
+  }
 }
 
 .fade-enter-active,

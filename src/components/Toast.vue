@@ -84,6 +84,7 @@ export default {
   animation-name: show;
   animation-duration: 0.5s;
   transition: 0.2s;
+  margin-top: 0px;
 }
 
 @keyframes show {

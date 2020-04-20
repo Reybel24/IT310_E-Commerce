@@ -103,8 +103,6 @@ export default {
 
       // Trim list
       this.filter_tags = this.filter_tags.slice(0, this.filter_tags_limit);
-
-      console.log(this.filter_tags);
     },
     searchTags(search) {
       for (let tag of this.filter_tags) {
@@ -202,17 +200,6 @@ export default {
 
     // Listen to product added event
     // EventBus.$on('item-added-to-cart', this.showToast());
-  },
-  created() {
-    // Subscribe to event
-    console.log("subscribed!");
-    this.$eventHub.$on("item-added-to-cart", function() {
-      console.log("WHYY");
-    });
-  },
-  beforeDestroy() {
-    // Unsubscribe from event
-    this.$eventHub.$off("item-added-to-cart");
   }
 };
 </script>
