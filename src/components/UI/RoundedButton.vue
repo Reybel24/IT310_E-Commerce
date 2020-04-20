@@ -50,6 +50,7 @@ export default {
   opacity: 0.8;
   justify-content: center;
   cursor: pointer;
+  user-select: none;
 }
 .btn:hover {
   opacity: 1;

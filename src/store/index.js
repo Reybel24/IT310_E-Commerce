@@ -88,6 +88,13 @@ export default new Vuex.Store({
         totalCost += item.price * item.quantity
       });
       return totalCost.toFixed(2);
+    },
+    countItemsInCart: state => {
+      var count = 0;
+      state.cart.map(item => {
+        count += item.quantity
+      });
+      return count;
     }
   },
   modules: {
