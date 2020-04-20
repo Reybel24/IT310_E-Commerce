@@ -5,6 +5,9 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+// Common utility functions
+import { delay, findProduct, getProductReviews, getUser, getUserImg } from "@/util/common.js";
+
 export default new Vuex.Store({
   state: {
     // Shopping cart
@@ -79,6 +82,31 @@ export default new Vuex.Store({
       }
       return null;
     },
+    async fetchProduct({ commit, state }, payload) {
+      // Get product data from "api"
+      var id = payload.id;
+      var product = await findProduct(id);
+      return product;
+    },
+    async fetchProductReviews({ commit, state }, payload) {
+      // Get product reviews from "api"
+      var id = payload.id;
+      var reviews = await getProductReviews(id);
+      return reviews;
+    },
+    async fetchUser({ commit, state }, payload) {
+      // Get user
+      var id = payload.id;
+      var user = await getUser(id);
+      return user;
+    },
+    async fetchUserImg({ commit, state }, payload) {
+      // Get user
+      var id = payload.id;
+      var userImg = await getUserImg(id);
+      return userImg;
+    },
+    
   },
   getters: {
     // Calculate cart total

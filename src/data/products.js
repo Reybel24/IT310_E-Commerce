@@ -4,7 +4,9 @@ var data = {
             {
                 id: 0,
                 name: "Baseball Cap",
+                seller: "Caps N Stuff",
                 description: "A simple hat",
+                description_long: "What can I say? It's a cap.",
                 price: 11.99,
                 img: "013-cap.png",
                 rating: 4.5,
@@ -79,8 +81,10 @@ var data = {
             {
                 id: 7,
                 name: "Men's Suit",
+                seller: "Versace",
                 description: "Wedding suit",
-                price: 179.99,
+                description_long: "This men's dressing suit if sure to have you looking dapper at whatever occasion you wear it to. Created using the softest cloth from the fields of Neptune (Yes, the planet) and the buttons crafted from pure 100% karot gold, you'll be the attention of all your jealous friends.",
+                price: 1499.99,
                 img: "029-wedding suit.png",
                 rating: 1.5
             },

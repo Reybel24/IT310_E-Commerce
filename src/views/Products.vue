@@ -185,8 +185,7 @@ export default {
           img: img
         }
       });
-      // instance.$slots.default = ["Click me!"];
-      instance.$mount(); // pass nothing
+      instance.$mount();
       this.$refs.toastsContainer.appendChild(instance.$el);
     }
   },

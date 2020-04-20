@@ -1,5 +1,5 @@
 <template>
-  <div class="product">
+  <div class="product" v-on:click="browseToProduct">
     <div class="img" :class="{ 'bg-blur': !this.hasData() }">
       <img :src="this.getProductImg()" v-if="this.hasData()" />
     </div>
@@ -80,6 +80,10 @@ export default {
     },
     pressAddToCart() {
       this.$emit("add-to-cart", this.data);
+    },
+    browseToProduct() {
+      var itemId = this.data.id;
+      this.$router.push({ path: `products/${itemId}` });
     }
   }
 };

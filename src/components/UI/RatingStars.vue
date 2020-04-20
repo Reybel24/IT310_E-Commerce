@@ -38,7 +38,7 @@ export default {
 <style scoped lang="scss">
 .rating-stars {
   display: flex;
-  padding: 11px 11px 8px 0px;
+  padding: 5px 11px 5px 0px;
 }
 .star {
   margin-right: 5px;
