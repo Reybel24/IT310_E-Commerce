@@ -203,7 +203,6 @@ export { randomNumberBetween }
 
 // Navigate to product page
 function browseToProduct(prodId) {
-    console.log("browsing")
     this.$router.push({ path: `/products/${prodId}` });
 }
 export { browseToProduct }
