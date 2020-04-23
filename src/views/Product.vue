@@ -72,7 +72,7 @@
             </div>
             <div class="name">{{ prod.name }}</div>
             <rating-stars :rating="prod.rating" />
-            <div class="price">${{ prod.price }}</div>
+            <div class="price strong">${{ prod.price }}</div>
           </div>
         </div>
       </perfect-scrollbar>
@@ -302,7 +302,7 @@ export default {
     flex-direction: column;
     font-size: 1em;
     justify-content: flex-start;
-    padding-left: 30px;
+    padding-left: 43px;
     width: 50%;
 
     // Product name
@@ -395,6 +395,7 @@ export default {
   justify-content: flex-start;
   margin-top: 20px;
   flex-direction: column;
+  user-select: none;
 
   .grid {
     margin-top: 20px;
@@ -419,7 +420,7 @@ export default {
   }
 
   .related-product {
-    margin-right: 18px;
+    margin-right: 22px;
     color: $grey;
     width: 137px;
     flex-direction: column;
@@ -428,16 +429,16 @@ export default {
     box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.09);
     border: 1px solid rgb(245, 245, 245);
     background-color: white;
-    padding: 2px 15px 19px 15px;
+    padding: 30px 15px 19px 15px;
     border-radius: 6px;
     transition: 0.12s;
     flex-shrink: 0;
     margin-bottom: 15px;
 
     .img {
-      width: 50%;
+      width: 60%;
       height: min-content;
-      padding: 30px;
+      padding: 10px 30px 30px 30px;
       align-items: center;
       justify-content: center;
       // border: 1px solid $lighter-grey;
@@ -463,6 +464,7 @@ export default {
 
 .related-product:hover {
   box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.18);
+  transform: scale(1.07, 1.07);
 }
 
 // Reviews
@@ -526,7 +528,9 @@ export default {
 }
 
 .bg-cover {
-  background-color: $lighter-grey;
-  color: $lighter-grey;
+  background-color: $almost-white;
+  color: $almost-white;
+  border-radius: 4px;
+  
 }
 </style>

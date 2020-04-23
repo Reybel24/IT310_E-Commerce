@@ -125,8 +125,7 @@ async function getRelatedProducts(id) {
     // await delay(100);
 
     var related = [];
-    // var relatedMatchedCount = [];
-    var products = api_data_products.getProducts();
+    var products = await getProducts();
 
     // First, get this product's data
     var thisProduct = await getProduct(id);
