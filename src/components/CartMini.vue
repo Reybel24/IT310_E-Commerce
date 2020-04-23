@@ -17,7 +17,7 @@
         </div>
         <div class="info">
           <div class="name strong">{{ item.name }}</div>
-          <div class="cost">${{ calcItemCost(item) }}</div>
+          <div class="cost">${{ item.price }} {{ (item.quantity > 1) ? "x " + item.quantity + " ($" + calcItemCost(item) + ")" : "" }}</div>
         </div>
 
         <div class="quantity">

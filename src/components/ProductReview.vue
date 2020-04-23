@@ -14,8 +14,9 @@
       <div class="title strong">{{ review.title }}</div>
       <rating-stars :rating="review.rating" class="rating-stars" />
     </div>
-    <div class="date-time">{{ review.date_time }}</div>
+    <div class="date-time">{{ getDateInEnglish() }}</div>
     <div class="content-text">{{ review.content }}</div>
+    <div class="helpful">{{ this.randomNumberBetween(0, 48) }} people found this helpful</div>
     <div class="actions">
       <rounded-button name="Helpful" class="btn btn-helpful" variant="outline" />
       <rounded-button name="Not Helpful" class="btn btn-not-helpful" variant="outline" />
@@ -27,6 +28,12 @@
 // UI components
 import RatingStars from "@/components/UI/RatingStars.vue";
 import RoundedButton from "@/components/UI/RoundedButton.vue";
+
+// Common utility functions
+import { randomNumberBetween } from "@/util/common.js";
+
+// Moment
+import moment from "moment";
 
 export default {
   name: "product-review",
@@ -44,7 +51,8 @@ export default {
   data() {
     return {
       isReady: false,
-      user: null
+      user: null,
+      randomNumberBetween
     };
   },
   methods: {
@@ -60,8 +68,12 @@ export default {
       this.isReady = true;
     },
     getUserImg() {
-      console.log(this.user.avatar);
       return require("@/assets/avatars/" + this.user.avatar);
+    },
+    getDateInEnglish() {
+      // var date = new Date(this.review.date_time);
+      var date = moment(this.review.date_time).format("MMMM Do, YYYY");
+      return date;
     }
   },
   async mounted() {
@@ -77,6 +89,8 @@ export default {
   padding: 0px 0 0 0;
   color: $black;
   flex-direction: column;
+  max-width: 750px;
+  line-height: 25px;
 
   .author {
     font-size: 0.8em;
@@ -118,7 +132,7 @@ export default {
 
   .content-text {
     font-size: 0.9em;
-    color: $grey;
+    color: $dark-grey;
     margin-top: 6px;
     text-align: left;
   }
@@ -141,8 +155,15 @@ export default {
     opacity: 0.8;
   }
 
+  .helpful {
+    margin-top: 14px;
+    font-size: 0.82em;
+    color: $grey;
+  }
+
   .actions {
     margin-top: 15px;
+    align-items: center;
 
     .btn {
       border-radius: 5px;

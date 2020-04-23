@@ -9,7 +9,7 @@
         <div class="name strong" v-if="this.isReady">{{ this.product.name }}</div>
         <div class="seller" v-if="this.isReady">
           <span>by</span>
-          <span class="strong">{{ this.product.seller }}</span>
+          <span class="strong">{{ (this.product.seller != undefined) ? this.product.seller : "Unknown Seller" }}</span>
         </div>
         <div class="rating">
           <rating-stars :rating="this.product.rating" v-if="this.isReady" />
@@ -34,8 +34,11 @@
         </div>
       </div>
     </div>
-    <div class="reviews">
+    <div class="reviews" v-if="this.isReady">
       <div class="head strong">REVIEWS</div>
+      <div class="leave-a-review">
+        <textarea placeholder="Leave a review" />
+      </div>
       <product-review v-for="(review, index) in productReviews" :key="index" :review="review" />
     </div>
     <toast :title="this.toast.title" v-if="1==2" />
@@ -266,7 +269,24 @@ export default {
   }
 }
 
-/* Toast */
+// Leave a review box
+.leave-a-review {
+  width: 100%;
+  margin-bottom: 40px;
+  display: flex;
+  color: $black;
+
+  textarea {
+    width: 85%;
+    height: 60px;
+    border: 1px solid $lighter-grey;
+    border-radius: 4px;
+    padding: 15px 0 0 20px;
+    resize: none;
+  }
+}
+
+// Toast
 .toasts-container {
   flex-direction: column;
   position: absolute;
