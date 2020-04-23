@@ -47,6 +47,7 @@
       v-if="!cartIsEmpty()"
       v-on:press="pressGoToCheckout"
       class="btn-checkout"
+      icon="credit-card"
     />
 
     <!-- Empty cart -->

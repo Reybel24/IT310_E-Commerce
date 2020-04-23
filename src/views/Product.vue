@@ -21,7 +21,10 @@
           {{ this.productReviews.length }} reviews
         </div>
         <div class="price strong" v-if="this.isReady">${{ this.product.price }}</div>
-        <div class="desc" v-if="this.isReady">{{ this.product.description_long }}</div>
+        <div
+          class="desc"
+          v-if="this.isReady"
+        >{{ (this.product.description_long) ? this.product.description_long : "No description provided." }}</div>
         <div class="a-box">
           <rounded-button
             name="ADD TO BAG"
@@ -35,6 +38,7 @@
             v-on:press="pressAddToCart"
             class="btn btn-add-to-list"
             variant="outline"
+            icon="stream"
           />
         </div>
       </div>
@@ -42,41 +46,52 @@
 
     <div class="related-products">
       <div class="head strong">Customers who bought this also looked at</div>
-      <div class="grid">
-        <div class="loading" v-if="!this.relatedProductsIsReady">
-          <div class="related-product" v-for="num in 5" :key="num">
-            <div class="img bg-cover"></div>
-            <div class="name bg-cover">None</div>
+      <perfect-scrollbar v-dragscroll>
+        <div class="grid">
+          <div class="loading" v-if="!this.relatedProductsIsReady">
+            <div class="related-product" v-for="num in 5" :key="num">
+              <div class="img bg-cover"></div>
+              <div class="name bg-cover">None</div>
+            </div>
+          </div>
+
+          <div class="empty" v-if="this.relatedProductsIsReady && this.relatedProducts.length < 1">
+            <font-awesome-icon :icon="['fa', 'frown']" class="icon" />
+            <span class="strong">No related items found</span>
+          </div>
+
+          <div
+            class="related-product"
+            v-for="(prod, index) in relatedProducts"
+            :key="index"
+            @mousedown="startClickTimer(prod.id)"
+            @mouseup="browseToProduct(prod.id)"
+          >
+            <div class="img">
+              <img :src="getProductImg(prod)" />
+            </div>
+            <div class="name">{{ prod.name }}</div>
+            <div class="price">${{ prod.price }}</div>
           </div>
         </div>
-
-        <div class="empty" v-if="this.relatedProductsIsReady && this.relatedProducts.length < 1">
-          <font-awesome-icon :icon="['fa', 'frown']" class="icon" />
-          <span class="strong">No related items found</span>
-        </div>
-
-        <div
-          class="related-product"
-          v-for="(prod, index) in relatedProducts"
-          :key="index"
-          v-on:click="browseToProduct(prod.id)"
-        >
-          <div class="img">
-            <img :src="getProductImg(prod)" />
-          </div>
-          <div class="name">{{ prod.name }}</div>
-        </div>
-      </div>
+      </perfect-scrollbar>
     </div>
 
-    <div class="reviews" v-if="this.isReady">
+    <div class="reviews" v-if="this.reviewsIsReady">
       <div class="head strong">REVIEWS</div>
       <div class="leave-a-review">
         <textarea placeholder="Write a review" />
       </div>
       <product-review v-for="(review, index) in productReviews" :key="index" :review="review" />
+
+      <!-- No reviews -->
+      <div class="empty" v-if="this.reviewsIsReady && this.productReviews.length < 1">
+        <font-awesome-icon :icon="['fa', 'comment-alt']" class="icon" />
+        <span class="strong">This product has no reviews. Be the first to review it!</span>
+      </div>
     </div>
     <toast :title="this.toast.title" v-if="1==2" />
+
     <div class="toasts-container" ref="toastsContainer"></div>
   </div>
 </template>
@@ -100,6 +115,9 @@ import {
 // Import vue
 import Vue from "vue";
 
+// Dragscroll
+import { dragscroll } from "vue-dragscroll";
+
 export default {
   name: "product",
   props: {},
@@ -109,6 +127,9 @@ export default {
     ProductReview,
     Toast
   },
+  directives: {
+    dragscroll: dragscroll
+  },
   data() {
     return {
       isReady: false,
@@ -117,6 +138,9 @@ export default {
       productReviews: [],
       relatedProducts: [],
       relatedProductsIsReady: false,
+      reviewsIsReady: false,
+      clickTimeout: null,
+      canClick: false,
 
       // Methods
       randomNumberBetween,
@@ -130,6 +154,8 @@ export default {
     async loadPage() {
       this.isReady = false;
       this.relatedProductsIsReady = false;
+      this.reviewsIsReady = false;
+      this.productReviews = [];
       this.relatedProducts = [];
 
       // Fetch product data
@@ -155,7 +181,7 @@ export default {
       });
 
       // Set ready
-      this.isReady = true;
+      this.reviewsIsReady = true;
     },
     randomIntFromInterval(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
@@ -195,6 +221,28 @@ export default {
       });
       this.relatedProductsIsReady = true;
       return related;
+    },
+    startClickTimer() {
+      // if (!this.canClick) return;
+      clearTimeout(this.clickTimeout);
+
+      console.log("mosue down");
+      setTimeout(function() {
+        console.log("time up");
+        this.canClick = false;
+        console.log(this.canClick);
+      }, 2000);
+    },
+    endClickTimer(prodId) {
+      console.log(this.canClick);
+      if (this.canClick == true) {
+        browseToProduct(prodId);
+        console.log("browsing to " + prodId);
+      } else {
+        console.log("Not navigating. timer expired.");
+      }
+
+      this.canClick = true;
     }
   },
   mounted() {
@@ -204,6 +252,9 @@ export default {
     $route() {
       // When route changes, reload data with new product id
       this.loadPage();
+    },
+    canClick(old, newVal) {
+      console.log("canClick changed to " + newVal);
     }
   }
 };
@@ -310,6 +361,12 @@ export default {
   .btn-add-to-cart {
     background-color: #f2b05f;
     color: #8b5007;
+    background: rgb(255, 171, 0);
+    background: linear-gradient(
+      0deg,
+      rgba(255, 171, 0, 1) 0%,
+      rgba(255, 201, 0, 1) 100%
+    );
   }
 
   .btn-add-to-list {
@@ -335,6 +392,8 @@ export default {
 
   .grid {
     margin-top: 20px;
+    margin-bottom: 17px;
+    padding-left: 4px;
   }
 
   .head {
@@ -354,12 +413,20 @@ export default {
   }
 
   .related-product {
-    margin-right: 15px;
+    margin-right: 18px;
     color: $grey;
     width: 137px;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.09);
+    border: 1px solid rgb(245, 245, 245);
+    background-color: white;
+    padding: 2px 8px 19px 8px;
+    border-radius: 6px;
+    transition: 0.12s;
+    flex-shrink: 0;
+    margin-bottom: 15px;
 
     .img {
       width: 50%;
@@ -367,7 +434,7 @@ export default {
       padding: 30px;
       align-items: center;
       justify-content: center;
-      border: 1px solid $lighter-grey;
+      // border: 1px solid $lighter-grey;
 
       img {
         width: 95%;
@@ -380,7 +447,16 @@ export default {
     .name {
       margin-top: 7px;
     }
+
+    .price {
+      font-size: 0.94em;
+      margin-top: 3px;
+    }
   }
+}
+
+.related-product:hover {
+  box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.18);
 }
 
 // Reviews
@@ -391,6 +467,7 @@ export default {
   font-size: 1em;
   color: $black;
   margin-top: 30px;
+  padding-bottom: 50px;
 
   .head {
     font-size: 1.1em;
@@ -399,6 +476,17 @@ export default {
 
   .review {
     margin: 0 0 40px 0;
+  }
+
+  .empty {
+    color: $grey;
+    align-items: center;
+
+    .icon {
+      font-size: 3em;
+      margin-right: 16px;
+      color: $lighter-grey;
+    }
   }
 }
 

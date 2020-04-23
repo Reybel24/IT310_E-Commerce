@@ -29,6 +29,21 @@ var data = {
                     { title: "Certified Troll" }
                 ]
             },
+            {
+                id: 4,
+                name: "Tommy Hillburger",
+                avatar: "041-tourist.png",
+                badges: [
+                    { title: "1000 Purchase Club" }
+                ]
+            },
+            {
+                id: 5,
+                name: "Ronald Davis",
+                avatar: "037-surfer.png",
+                badges: [
+                ]
+            },
         ]
     }
 }

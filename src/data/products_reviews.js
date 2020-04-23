@@ -55,6 +55,42 @@ var data = {
                 date_time: "2020-04-20 06:08:03",
                 rating: 4.5,
             },
+            {
+                id: 6,
+                product_id: 15,
+                author_id: 4,
+                title: "More than an accessory",
+                content: "Before I bought this belt, my wife was thinking of leaving me and my children thought their father was a pure loser. However, that is NO longer the case. Ever since I bought this belt, my wife and her boyfriend now see me for the MAN that I am. My children know their pops got the cash. Life has never been better.",
+                date_time: "2020-04-20 06:08:03",
+                rating: 5,
+            },
+            {
+                id: 6,
+                product_id: 15,
+                author_id: 5,
+                title: "I was skeptical",
+                content: "I will admit, after reading a couple reviews, I was skeptical but I went ahead and bought it anyway. I figured what do I have to lose but a couple thousand dollars, right? So end of the week comes and I recieve my order. I open the box and put it on and I immediatly knew what all the hype was about. Ordering 2 more.",
+                date_time: "2020-04-20 06:08:03",
+                rating: 4.5,
+            },
+            {
+                id: 7,
+                product_id: 10,
+                author_id: 5,
+                title: "Very stylish indeed",
+                content: "The name doesn't lie. Soft and stylish just as advertised. No complaints here.",
+                date_time: "2020-04-09 22:47:10",
+                rating: 4,
+            },
+            {
+                id: 8,
+                product_id: 10,
+                author_id: 4,
+                title: "Its okay",
+                content: "I really wish there were more color options to choose from. Other than that, its an okay sweater. Does a decent job of keeping me warm.",
+                date_time: "2020-04-03 14:08:03",
+                rating: 4,
+            },
         ]
     }
 }
