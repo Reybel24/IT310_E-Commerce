@@ -43,9 +43,6 @@ import ListedProduct from "@/components/ListedProduct.vue";
 // Toast notification
 import Toast from "@/components/Toast.vue";
 
-// Products data (this will eventually be pulled from API instead)
-import api_data from "@/data/products.js";
-
 import Vue from "vue";
 
 export default {
@@ -69,13 +66,13 @@ export default {
       return new Promise(res => setTimeout(res, ms));
     },
     async loadProducts() {
-      // Simulate API call Wait
-      await this.delay(750);
+      // Fetch products
+      this.products = await this.$store.dispatch({
+        type: "fetchProducts"
+      });
 
-      this.products = api_data.getProducts();
       this.products_filtered = this.products;
       this.isReady = true;
-      // console.log(this.products);
     },
     generateTags() {
       for (let prod of this.products) {
@@ -103,8 +100,6 @@ export default {
 
       // Trim list
       this.filter_tags = this.filter_tags.slice(0, this.filter_tags_limit);
-
-      console.log(this.filter_tags);
     },
     searchTags(search) {
       for (let tag of this.filter_tags) {
@@ -187,32 +182,19 @@ export default {
           img: img
         }
       });
-      // instance.$slots.default = ["Click me!"];
-      instance.$mount(); // pass nothing
+      instance.$mount();
       this.$refs.toastsContainer.appendChild(instance.$el);
     }
   },
-  mounted() {
+  async mounted() {
     // Fetch products
-    var _this = this;
-    this.loadProducts().then(function() {
-      // Generate some tags based on response
-      _this.generateTags();
-    });
+    await this.loadProducts();
+
+    // Generate some tags based on response
+    this.generateTags();
 
     // Listen to product added event
     // EventBus.$on('item-added-to-cart', this.showToast());
-  },
-  created() {
-    // Subscribe to event
-    console.log("subscribed!");
-    this.$eventHub.$on("item-added-to-cart", function() {
-      console.log("WHYY");
-    });
-  },
-  beforeDestroy() {
-    // Unsubscribe from event
-    this.$eventHub.$off("item-added-to-cart");
   }
 };
 </script>

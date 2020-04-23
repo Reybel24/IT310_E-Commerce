@@ -4,7 +4,7 @@
       <div
         class="title strong"
         v-if="!cartIsEmpty()"
-      >YOUR CART ({{ this.$store.state.cart.length }})</div>
+      >YOUR CART ({{ cartItemsCount }})</div>
       <div class="clear-cart strong" v-if="!cartIsEmpty()" v-on:click="clearCart()">
         <font-awesome-icon :icon="['fa', 'times']" class="icon" />CLEAR
       </div>
@@ -17,7 +17,9 @@
         </div>
         <div class="info">
           <div class="name strong">{{ item.name }}</div>
-          <div class="cost">${{ calcItemCost(item) }}</div>
+          <div
+            class="cost"
+          >${{ item.price }} {{ (item.quantity > 1) ? "x " + item.quantity + " ($" + calcItemCost(item) + ")" : "" }}</div>
         </div>
 
         <div class="quantity">
@@ -37,7 +39,7 @@
     </div>
 
     <div class="cart-total" v-if="!cartIsEmpty()">
-      TOTAL
+      SUBTOTAL
       <div class="value strong">${{ this.$store.getters.cartTotal }}</div>
     </div>
 
@@ -47,6 +49,7 @@
       v-if="!cartIsEmpty()"
       v-on:press="pressGoToCheckout"
       class="btn-checkout"
+      icon="credit-card"
     />
 
     <!-- Empty cart -->
@@ -67,6 +70,8 @@ import { mixin as clickaway } from "vue-clickaway";
 // Scroll
 // import { PerfectScrollbar } from "vue2-perfect-scrollbar";
 
+import { mapGetters } from 'vuex'
+
 export default {
   mixins: [clickaway],
   name: "cart-mini",
@@ -80,7 +85,9 @@ export default {
       scrollBarOptions: {
         wheelSpeed: 1,
         suppressScrollX: true
-      }
+      },
+      cartCount: this.$store.countItemsInCart,
+      isAnim: false
     };
   },
   methods: {
@@ -140,6 +147,17 @@ export default {
     close() {
       this.$emit("close");
     }
+  },
+  computed: {
+    ...mapGetters({
+      cartItemsCount: "countItemsInCart"
+    })
+  },
+  watch: {
+    cartItemsCount: function() {
+      console.log("cart updated!");
+      this.isAnim = true;
+    }
   }
 };
 </script>
@@ -167,6 +185,7 @@ export default {
   padding: 5px 20px 0 20px;
   justify-content: space-between;
   align-content: center;
+  width: 90%;
 
   .title {
   }

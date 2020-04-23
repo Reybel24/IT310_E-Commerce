@@ -15,6 +15,11 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+// Scrollbar
+import PerfectScrollbar from 'vue2-perfect-scrollbar'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+Vue.use(PerfectScrollbar)
+
 new Vue({
   router,
   store,

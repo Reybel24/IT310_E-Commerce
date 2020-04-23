@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <div class="img" :class="{ 'bg-blur': !this.hasData() }">
+    <div class="img" :class="{ 'bg-blur': !this.hasData() }" v-on:click="browseToProduct">
       <img :src="this.getProductImg()" v-if="this.hasData()" />
     </div>
     <div class="info">
@@ -20,11 +20,20 @@
             class="cents"
           >{{ (this.data) ? (this.data.price % 1).toFixed(2).toString().slice(2) : "99"}}</span>
         </div>
-        <rounded-button name="ADD TO CART" v-if="this.hasData()" v-on:press="pressAddToCart" class="btn-add-to-cart" :variant="'outline'" />
+        <rounded-button
+          name="ADD TO CART"
+          v-if="this.hasData()"
+          v-on:press="pressAddToCart"
+          class="btn-add-to-cart"
+          :variant="'outline'"
+        />
       </div>
       <div class="tags">
         <div class="tag" v-for="(tag, index) in this.getTags()" :key="index">{{ tag }}</div>
-        <div class="tag empty" v-if="this.hasData() && (!this.data.tags || this.data.tags.length < 1)">No tags</div>
+        <div
+          class="tag empty"
+          v-if="this.hasData() && (!this.data.tags || this.data.tags.length < 1)"
+        >No tags</div>
       </div>
     </div>
   </div>
@@ -80,6 +89,10 @@ export default {
     },
     pressAddToCart() {
       this.$emit("add-to-cart", this.data);
+    },
+    browseToProduct() {
+      var itemId = this.data.id;
+      this.$router.push({ path: `products/${itemId}` });
     }
   }
 };
@@ -95,7 +108,6 @@ export default {
   flex-direction: row;
   border-radius: 12px;
   overflow: hidden;
-  cursor: pointer;
   transition: 0.2s;
   background-color: white;
   min-width: 265px;
@@ -112,90 +124,105 @@ export default {
   @include rwd(2560) {
     width: 24%;
   }
+
+  .img {
+    width: 35%;
+    padding: 30px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    img {
+      width: 95%;
+      height: 95%;
+      object-fit: contain;
+      transition: 0.2s;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 20px 20px 22px 15px;
+    font-size: 1em;
+    color: $black;
+
+    .name {
+      text-align: left;
+    }
+    .description {
+      text-align: left;
+      margin-top: 3px;
+      color: $light-grey;
+      font-size: 0.9em;
+    }
+
+    .price {
+      font-size: 1.2em;
+
+      .cents {
+        font-size: 0.7em;
+        padding: 1px 0px 0px 2px;
+      }
+    }
+  }
+
+  .bottom {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 11px;
+    flex-wrap: wrap;
+  }
+
+  .btn-add-to-cart {
+    margin-top: 3px;
+  }
+
+  .tags {
+    margin-top: auto;
+    flex-wrap: wrap;
+    display: none;
+    @include lg {
+      display: flex;
+      width: 100%;
+    }
+
+    .tag {
+      padding: 3px 9px 3px 9px;
+      background-color: $purple;
+      border-radius: 20px;
+      margin-right: 5px;
+      color: white;
+      font-size: 0.8em;
+      opacity: 0.7;
+      transition: 0.1s;
+      margin-bottom: 3px;
+    }
+  }
+
+  .tag:hover {
+    opacity: 1;
+  }
+
+  .tag.empty {
+    background-color: $light-grey;
+    color: white;
+  }
+
+  .rating-stars {
+    margin-top: 5px;
+  }
 }
 .product:hover {
   box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.15);
 }
 
-/* Product information UI */
-.img {
-  width: 35%;
-  padding: 30px;
-  align-items: center;
-  justify-content: center;
-}
-.img > img {
-  width: 95%;
-  height: 95%;
-  object-fit: contain;
-  transition: 0.2s;
-}
+// Hover
 .product:hover > .img > img {
   transform: scale(1.1, 1.1);
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding: 20px 20px 22px 15px;
-  font-size: 1em;
-  color: $black;
-}
-.info .name {
-  text-align: left;
-}
-.info .description {
-  text-align: left;
-  margin-top: 3px;
-  color: $light-grey;
-  font-size: 0.9em;
-}
-.bottom {
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 11px;
-  flex-wrap: wrap;
-}
-.info .price {
-  font-size: 1.2em;
-}
-.info .price > .cents {
-  font-size: 0.7em;
-  padding: 1px 0px 0px 2px;
-}
-.btn-add-to-cart {
-  margin-top: 3px;
-}
-
-.tags {
-  margin-top: auto;
-  flex-wrap: wrap;
-  display: none;
-  @include lg {
-    display: flex;
-    width: 100%;
-  }
-}
-.tags .tag {
-  padding: 3px 9px 3px 9px;
-  background-color: $purple;
-  border-radius: 20px;
-  margin-right: 5px;
-  color: white;
-  font-size: 0.8em;
-  opacity: 0.7;
-  transition: 0.1s;
-  margin-bottom: 3px;
-}
-.tags .tag:hover {
-  opacity: 1;
-}
-.tags .tag.empty {
-  background-color: $light-grey;
-  color: white;
 }
 
 .bg-blur {
