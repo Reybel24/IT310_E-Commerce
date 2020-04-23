@@ -35,7 +35,7 @@
           <rounded-button
             name="ADD TO LIST"
             v-if="this.isReady"
-            v-on:press="pressAddToCart"
+            v-on:press="pressAddToList"
             class="btn btn-add-to-list"
             variant="outline"
             icon="stream"
@@ -203,6 +203,11 @@ export default {
         item: this.product
       });
       this.createToast(this.product.name + " added to cart!", this.product.img);
+    },
+    pressAddToList() {
+      // Does nothing for now
+      // Display a toast atleast
+      this.createToast(this.product.name + " added to wish list!", this.product.img);
     },
     createToast(title, img) {
       var ComponentClass = Vue.extend(Toast);
