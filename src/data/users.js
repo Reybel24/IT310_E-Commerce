@@ -2,6 +2,14 @@ var data = {
     getUsers() {
         return [
             {
+                id: -1,
+                name: "You",
+                avatar: "022-summer.png",
+                badges: [
+                    { title: "Certified Fashion Expert" }
+                ]
+            },
+            {
                 id: 0,
                 name: "Tony Stark",
                 avatar: "022-summer.png",

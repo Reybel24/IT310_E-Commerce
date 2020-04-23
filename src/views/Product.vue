@@ -81,7 +81,27 @@
     <div class="reviews" v-if="this.reviewsIsReady">
       <div class="head strong">REVIEWS</div>
       <div class="leave-a-review">
-        <textarea placeholder="Write a review" />
+        <input
+          type="text"
+          placeholder="Write a review"
+          v-model="userReview.title"
+          v-if="!this.reviewWasSubmitted"
+        />
+        <textarea
+          placeholder="Tell us about your purchase"
+          v-model="userReview.content"
+          v-if="!this.reviewWasSubmitted"
+        />
+        <rounded-button
+          name="POST REVIEW"
+          v-on:press="pressPostReview(userReview.title, userReview.content)"
+          class="btn btn-add-to-list"
+          icon="stream"
+          :disabled="userReview.title == '' || userReview.content == ''"
+          v-if="!this.reviewWasSubmitted"
+        />
+
+        <div class="submitted" v-if="this.reviewWasSubmitted">Thanks for your review!</div>
       </div>
       <product-review v-for="(review, index) in productReviews" :key="index" :review="review" />
 
@@ -140,6 +160,11 @@ export default {
       relatedProducts: [],
       relatedProductsIsReady: false,
       reviewsIsReady: false,
+      userReview: {
+        title: "",
+        content: ""
+      },
+      reviewWasSubmitted: false,
       clickTimeout: null,
       canClick: false,
 
@@ -158,6 +183,7 @@ export default {
       this.reviewsIsReady = false;
       this.productReviews = [];
       this.relatedProducts = [];
+      this.resetUserReview();
 
       // Fetch product data
       await this.loadProduct();
@@ -207,7 +233,10 @@ export default {
     pressAddToList() {
       // Does nothing for now
       // Display a toast atleast
-      this.createToast(this.product.name + " added to wish list!", this.product.img);
+      this.createToast(
+        this.product.name + " added to wish list!",
+        this.product.img
+      );
     },
     createToast(title, img) {
       var ComponentClass = Vue.extend(Toast);
@@ -232,23 +261,46 @@ export default {
       // if (!this.canClick) return;
       clearTimeout(this.clickTimeout);
 
-      console.log("mosue down");
+      // console.log("mosue down");
       setTimeout(function() {
-        console.log("time up");
+        // console.log("time up");
         this.canClick = false;
-        console.log(this.canClick);
+        // console.log(this.canClick);
       }, 2000);
     },
     endClickTimer(prodId) {
-      console.log(this.canClick);
+      // console.log(this.canClick);
       if (this.canClick == true) {
         browseToProduct(prodId);
-        console.log("browsing to " + prodId);
+        // console.log("browsing to " + prodId);
       } else {
-        console.log("Not navigating. timer expired.");
+        // console.log("Not navigating. timer expired.");
       }
 
       this.canClick = true;
+    },
+    pressPostReview(title, content) {
+      var now = new Date();
+
+      // Create review object
+      var review = {
+        id: -1,
+        author_id: -1,
+        title: title,
+        content: content,
+        date_time: now,
+        rating: 2.5
+      };
+
+      // Add to list
+      this.productReviews.unshift(review);
+
+      this.reviewWasSubmitted = true;
+    },
+    resetUserReview() {
+      this.reviewWasSubmitted = false;
+      this.userReview.title = "";
+      this.userReview.content = "";
     }
   },
   mounted() {
@@ -505,18 +557,32 @@ export default {
 
 // Leave a review box
 .leave-a-review {
-  width: 100%;
   margin-bottom: 40px;
   display: flex;
   color: $black;
+  flex-direction: column;
+  padding: 0 0% 0 0;
+
+  input {
+    height: 35px;
+    padding: 0 10px 0 10px;
+    border: 1px solid $lighter-grey;
+  }
 
   textarea {
-    width: 85%;
     height: 60px;
     border: 1px solid $lighter-grey;
     border-radius: 4px;
     padding: 15px 0 0 20px;
     resize: none;
+    margin-top: 15px;
+    border: 1px solid $lighter-grey;
+  }
+
+  .btn {
+    width: 150px;
+    margin-top: 20px;
+    align-self: flex-end;
   }
 }
 
@@ -536,6 +602,5 @@ export default {
   background-color: $almost-white;
   color: $almost-white;
   border-radius: 4px;
-  
 }
 </style>

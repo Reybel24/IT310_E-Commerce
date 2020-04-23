@@ -24,10 +24,16 @@ export default {
       default: "shopping-cart",
       required: false
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+      required: false
+    }
   },
   components: {},
   methods: {
     onPress() {
+      if (this.disabled) return;
       this.$emit("press");
     }
   },
@@ -36,6 +42,8 @@ export default {
       return {
         "fill": (this.variant == "fill"),
         "outline": (this.variant == "outline"),
+        "disable": this.disabled,
+        
       }
     }
   }
@@ -87,6 +95,13 @@ export default {
 .outline:hover {
   background-color: $blue;
   color: white;
+}
+
+.disable {
+  opacity: .4;
+}
+.disable:hover {
+  opacity: .5 !important;
 }
 
 </style>
