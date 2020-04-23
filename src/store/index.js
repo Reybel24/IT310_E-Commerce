@@ -3,10 +3,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
+
+// Router
+// import router from "@/router/index,js";
 
 // Common utility functions
-import { delay, findProduct, getProductReviews, getUser, getUserImg } from "@/util/common.js";
+import { delay, findProduct, fetchProductImg, getProductReviews, getUser, getUserImg, getRelatedProducts } from "@/util/common.js";
 
 // Moment
 import moment from "moment";
@@ -117,7 +120,18 @@ export default new Vuex.Store({
       var userImg = await getUserImg(id);
       return userImg;
     },
-
+    async fetchProductImg({ commit, state }, payload) {
+      // Get user
+      var id = payload.id;
+      var prodImg = await fetchProductImg(id);
+      return prodImg;
+    },
+    async fetchRelatedProducts({ commit, state }, payload) {
+      // Fetch products related to a product
+      var id = payload.id;
+      var related = await getRelatedProducts(id);
+      return related;
+    }
   },
   getters: {
     // Calculate cart total

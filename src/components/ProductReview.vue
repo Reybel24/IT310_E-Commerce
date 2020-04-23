@@ -52,7 +52,8 @@ export default {
     return {
       isReady: false,
       user: null,
-      randomNumberBetween
+      randomNumberBetween,
+      relatedProducts: []
     };
   },
   methods: {
@@ -61,8 +62,6 @@ export default {
         type: "fetchUser",
         id: parseInt(this.review.author_id)
       });
-
-      console.log(this.user);
 
       // Set ready
       this.isReady = true;
@@ -74,7 +73,7 @@ export default {
       // var date = new Date(this.review.date_time);
       var date = moment(this.review.date_time).format("MMMM Do, YYYY");
       return date;
-    }
+    },
   },
   async mounted() {
     // Get user data for name and avatar

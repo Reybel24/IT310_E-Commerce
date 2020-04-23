@@ -70,7 +70,7 @@ export default {
     },
     async loadProducts() {
       // Simulate API call Wait
-      await this.delay(750);
+      await this.delay(450);
 
       this.products = api_data.getProducts();
       this.products_filtered = this.products;

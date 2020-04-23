@@ -86,7 +86,14 @@ var data = {
                 description_long: "This men's dressing suit if sure to have you looking dapper at whatever occasion you wear it to. Created using the softest cloth from the fields of Neptune (Yes, the planet) and the buttons crafted from pure 100% karot gold, you'll be the attention of all your jealous friends.",
                 price: 1499.99,
                 img: "029-wedding suit.png",
-                rating: 1.5
+                rating: 1.5,
+                tags: [
+                    "fancy",
+                    "dress",
+                    "versace",
+                    "mens",
+                    "wedding"
+                ]
             },
             {
                 id: 8,
@@ -154,6 +161,7 @@ var data = {
                 tags: [
                     "blazer",
                     "fancy",
+                    "mens"
                 ]
             },
             {
@@ -178,6 +186,7 @@ var data = {
                 tags: [
                     "belt",
                     "gucci",
+                    "dress"
                 ]
             },
             {
@@ -186,7 +195,12 @@ var data = {
                 description: "Buttons included",
                 price: 79.99,
                 img: "026-vest.png",
-                rating: 5
+                rating: 5,
+                tags: [
+                    "dress",
+                    "mens",
+                    "wedding"
+                ]
             },
             {
                 id: 17,
