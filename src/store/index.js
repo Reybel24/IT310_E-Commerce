@@ -9,7 +9,7 @@ Vue.use(Vuex);
 // import router from "@/router/index,js";
 
 // Common utility functions
-import { delay, findProduct, fetchProductImg, getProductReviews, getUser, getUserImg, getRelatedProducts } from "@/util/common.js";
+import { delay, getProducts, getProduct, fetchProductImg, getProductReviews, getUser, getUserImg, getRelatedProducts } from "@/util/common.js";
 
 // Moment
 import moment from "moment";
@@ -88,13 +88,27 @@ export default new Vuex.Store({
       }
       return null;
     },
+    async fetchProducts({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(250);
+
+      // Get all product from "api"
+      var products = await getProducts();
+      return products;
+    },
     async fetchProduct({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(250);
+
       // Get product data from "api"
       var id = payload.id;
-      var product = await findProduct(id);
+      var product = await getProduct(id);
       return product;
     },
     async fetchProductReviews({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(300);
+
       // Get product reviews from "api"
       var id = payload.id;
       var reviews = await getProductReviews(id);
@@ -127,6 +141,9 @@ export default new Vuex.Store({
       return prodImg;
     },
     async fetchRelatedProducts({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(500);
+
       // Fetch products related to a product
       var id = payload.id;
       var related = await getRelatedProducts(id);

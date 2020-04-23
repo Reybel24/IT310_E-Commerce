@@ -17,8 +17,8 @@
           >{{ (this.product.seller != undefined) ? this.product.seller : "Unknown Seller" }}</span>
         </div>
         <div class="rating">
-          <rating-stars :rating="this.product.rating" v-if="this.isReady" />
-          {{ this.productReviews.length }} reviews
+          <rating-stars :rating="this.product.rating" v-if="this.isReady" class="stars" />
+          {{ this.productReviews.length }} {{ (this.productReviews.length == 1) ? "review" : "reviews" }}
         </div>
         <div class="price strong" v-if="this.isReady">${{ this.product.price }}</div>
         <div
@@ -71,6 +71,7 @@
               <img :src="getProductImg(prod)" />
             </div>
             <div class="name">{{ prod.name }}</div>
+            <rating-stars :rating="prod.rating" />
             <div class="price">${{ prod.price }}</div>
           </div>
         </div>
@@ -265,6 +266,7 @@ export default {
   width: 75%;
   margin: 0 auto;
   flex-direction: column;
+  margin-top: 12px;
 }
 
 // Current product
@@ -329,6 +331,10 @@ export default {
       color: $grey;
       font-size: 1em;
       margin-top: 5px;
+    }
+
+    .rating-stars {
+      margin-right: 5px;
     }
 
     // Description
@@ -422,7 +428,7 @@ export default {
     box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.09);
     border: 1px solid rgb(245, 245, 245);
     background-color: white;
-    padding: 2px 8px 19px 8px;
+    padding: 2px 15px 19px 15px;
     border-radius: 6px;
     transition: 0.12s;
     flex-shrink: 0;

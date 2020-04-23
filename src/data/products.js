@@ -31,6 +31,7 @@ var data = {
             {
                 id: 2,
                 name: "Gucci Heels",
+                seller: "Guccci",
                 description: "A fancy pair of shoes",
                 price: 29.50,
                 img: "015-high heels.png",
@@ -96,7 +97,7 @@ var data = {
                 description_long: "This men's dressing suit if sure to have you looking dapper at whatever occasion you wear it to. Created using the softest cloth from the fields of Neptune (Yes, the planet) and the buttons crafted from pure 100% karot gold, you'll be the attention of all your jealous friends.",
                 price: 1499.99,
                 img: "029-wedding suit.png",
-                rating: 1.5,
+                rating: 1,
                 tags: [
                     "fancy",
                     "dress",

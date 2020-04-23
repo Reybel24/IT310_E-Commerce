@@ -9,27 +9,69 @@ function delay(ms) {
 }
 export { delay }
 
-// Search for and return a product
-async function findProduct(id) {
+// Get all products
+async function getProducts() {
     // Simulate network delay
-    await delay(350);
+    // await delay(250);
+
+    var products = [];
+
+    // Search for product
+    var allProductsPlain = api_data_products.getProducts();
+    for (var prod of allProductsPlain) {
+        // Pass through getProduct bc it adds some calculated attributes 
+        var _product = await getProduct(prod.id);
+        products.push(_product);
+    }
+
+    // Return
+    return products;
+}
+export { getProducts }
+
+// Search for and return a product
+async function getProduct(id) {
+    // Simulate network delay
+    // await delay(350);
+
+    var product = null;
 
     // Search for product
     var products = api_data_products.getProducts();
     for (var prod of products) {
         if (prod.id == id) {
-            return prod;
+            product = prod;
+
+            // Calculate rating from reviews
+            var reviews = await getProductReviews(prod.id);
+
+            // Atleast 1 review
+            if (reviews.length >= 1) {
+                var sum = 0;
+                for (var review of reviews) {
+                    sum += review.rating;
+                }
+
+                // Calculate average and attach to payload
+                product.rating = (sum / reviews.length);
+            } else {
+                // No reviews
+                product.rating = 0;
+            }
+
+            // Return
+            return product;
         }
     }
     // No product found
     return null;
 }
-export { findProduct }
+export { getProduct }
 
 // Get reviews for a product
 async function getProductReviews(id) {
     // Simulate network delay
-    await delay(450);
+    // await delay(450);
 
     // Search for product
     var reviews = [];
@@ -87,7 +129,7 @@ async function getRelatedProducts(id) {
     var products = api_data_products.getProducts();
 
     // First, get this product's data
-    var thisProduct = await findProduct(id);
+    var thisProduct = await getProduct(id);
 
     // Make sure product data is returned
     if (!thisProduct) {

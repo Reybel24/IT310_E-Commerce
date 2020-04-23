@@ -17,7 +17,7 @@ var data = {
                 title: "Meh",
                 content: "I've worn better suits",
                 date_time: "2020-04-21 06:08:03",
-                rating: 2.5,
+                rating: 1.5,
             },
             {
                 id: 2,
@@ -90,6 +90,15 @@ var data = {
                 content: "I really wish there were more color options to choose from. Other than that, its an okay sweater. Does a decent job of keeping me warm.",
                 date_time: "2020-04-03 14:08:03",
                 rating: 4,
+            },
+            {
+                id: 9,
+                product_id: 2,
+                author_id: 3,
+                title: "Anything  but \"Gucci\"",
+                content: "I bought these as a gift for my sister's 17th birthday and within a month the heel of the left shoe had broken off. Currenty trying to contact the company for a refund but they won't even pick up the phone!",
+                date_time: "2020-04-03 14:08:03",
+                rating: 1,
             },
         ]
     }
