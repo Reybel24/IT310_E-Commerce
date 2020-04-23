@@ -3,6 +3,9 @@ import api_data_products from "@/data/products.js";
 import api_data_reviews from "@/data/products_reviews.js";
 import api_data_users from "@/data/users.js";
 
+// Moment
+import moment from "moment";
+
 // Simulate api promise
 function delay(ms) {
     return new Promise(res => setTimeout(res, ms));
@@ -82,6 +85,12 @@ async function getProductReviews(id) {
             reviews.push(review);
         }
     }
+
+    // Sort by date posted
+    reviews.sort((a, b) => {
+        return (moment(a.date_time).unix() < moment(b.date_time).unix()) ? 1 : -1;
+    });
+
     // Return all matched reviews
     return reviews;
 }

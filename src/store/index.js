@@ -11,9 +11,6 @@ Vue.use(Vuex);
 // Common utility functions
 import { delay, getProducts, getProduct, fetchProductImg, getProductReviews, getUser, getUserImg, getRelatedProducts } from "@/util/common.js";
 
-// Moment
-import moment from "moment";
-
 export default new Vuex.Store({
   state: {
     // Shopping cart
@@ -112,13 +109,6 @@ export default new Vuex.Store({
       // Get product reviews from "api"
       var id = payload.id;
       var reviews = await getProductReviews(id);
-
-      // Sort by date posted
-      reviews = reviews.sort((a, b) => {
-        // new moment(a.date_time).format('YYYYMMDD') - new moment(b.date_time).format('YYYYMMDD')
-        // moment(a.date_time).diff(moment(b.date_time).format('YYYYMMDD'))
-        moment(a.date_time).unix() - moment(b.date_time).unix()
-      });
 
       return reviews;
     },
