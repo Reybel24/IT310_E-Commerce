@@ -3,7 +3,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
+
+// Router
+// import router from "@/router/index,js";
+
+// Common utility functions
+import { delay, getProducts, getProduct, fetchProductImg, getProductReviews, getUser, getUserImg, getRelatedProducts } from "@/util/common.js";
 
 export default new Vuex.Store({
   state: {
@@ -79,6 +85,60 @@ export default new Vuex.Store({
       }
       return null;
     },
+    async fetchProducts({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(250);
+
+      // Get all product from "api"
+      var products = await getProducts();
+      return products;
+    },
+    async fetchProduct({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(250);
+
+      // Get product data from "api"
+      var id = payload.id;
+      var product = await getProduct(id);
+      return product;
+    },
+    async fetchProductReviews({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(300);
+
+      // Get product reviews from "api"
+      var id = payload.id;
+      var reviews = await getProductReviews(id);
+
+      return reviews;
+    },
+    async fetchUser({ commit, state }, payload) {
+      // Get user
+      var id = payload.id;
+      var user = await getUser(id);
+      return user;
+    },
+    async fetchUserImg({ commit, state }, payload) {
+      // Get user
+      var id = payload.id;
+      var userImg = await getUserImg(id);
+      return userImg;
+    },
+    async fetchProductImg({ commit, state }, payload) {
+      // Get user
+      var id = payload.id;
+      var prodImg = await fetchProductImg(id);
+      return prodImg;
+    },
+    async fetchRelatedProducts({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(500);
+
+      // Fetch products related to a product
+      var id = payload.id;
+      var related = await getRelatedProducts(id);
+      return related;
+    }
   },
   getters: {
     // Calculate cart total

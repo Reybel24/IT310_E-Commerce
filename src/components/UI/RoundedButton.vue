@@ -1,6 +1,6 @@
 <template>
   <div class="btn" :class="btnVariant" v-on:click="onPress">
-    <font-awesome-icon :icon="['fa', 'shopping-cart']" class="icon" />
+    <font-awesome-icon :icon="['fa', this.icon]" class="icon" />
     <div class="name strong">{{ this.name }}</div>
   </div>
 </template>
@@ -18,11 +18,22 @@ export default {
       type: String,
       default: "fill",
       required: false
+    },
+    icon: {
+      type: String,
+      default: "shopping-cart",
+      required: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   components: {},
   methods: {
     onPress() {
+      if (this.disabled) return;
       this.$emit("press");
     }
   },
@@ -31,6 +42,8 @@ export default {
       return {
         "fill": (this.variant == "fill"),
         "outline": (this.variant == "outline"),
+        "disable": this.disabled,
+        
       }
     }
   }
@@ -54,12 +67,17 @@ export default {
 }
 .btn:hover {
   opacity: 1;
+  box-shadow: 0px 5px 18px 0px rgba(79, 79, 79, 0.08);
 }
+.btn:active {
+  transform: scale(.97, .97);
+}
+
 .icon {
   font-size: 0.9em;
 }
 .name {
-  margin-left: 6px;
+  margin-left: 8px;
 }
 
 /* Variants */
@@ -77,6 +95,13 @@ export default {
 .outline:hover {
   background-color: $blue;
   color: white;
+}
+
+.disable {
+  opacity: .4;
+}
+.disable:hover {
+  opacity: .5 !important;
 }
 
 </style>
