@@ -1,6 +1,6 @@
 <template>
-  <div class="product" v-on:click="browseToProduct">
-    <div class="img" :class="{ 'bg-blur': !this.hasData() }">
+  <div class="product">
+    <div class="img" :class="{ 'bg-blur': !this.hasData() }" v-on:click="browseToProduct">
       <img :src="this.getProductImg()" v-if="this.hasData()" />
     </div>
     <div class="info">
@@ -99,7 +99,6 @@ export default {
   flex-direction: row;
   border-radius: 12px;
   overflow: hidden;
-  cursor: pointer;
   transition: 0.2s;
   background-color: white;
   min-width: 265px;
@@ -127,6 +126,7 @@ export default {
   padding: 30px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .img > img {
   width: 95%;
