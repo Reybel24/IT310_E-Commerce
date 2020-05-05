@@ -1,10 +1,7 @@
 <template>
   <div class="cart" v-on-clickaway="close">
     <div class="head">
-      <div
-        class="title strong"
-        v-if="!cartIsEmpty()"
-      >YOUR CART ({{ cartItemsCount }})</div>
+      <div class="title strong" v-if="!cartIsEmpty()">YOUR CART ({{ cartItemsCount }})</div>
       <div class="clear-cart strong" v-if="!cartIsEmpty()" v-on:click="clearCart()">
         <font-awesome-icon :icon="['fa', 'times']" class="icon" />CLEAR
       </div>
@@ -70,7 +67,7 @@ import { mixin as clickaway } from "vue-clickaway";
 // Scroll
 // import { PerfectScrollbar } from "vue2-perfect-scrollbar";
 
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   mixins: [clickaway],
@@ -97,8 +94,11 @@ export default {
       }
       return require("@/assets/products/" + item.img);
     },
-    pressGoToCheckout() {
+    async pressGoToCheckout() {
       console.log("Going to checkout.");
+      this.product = await this.$store.dispatch({
+        type: "checkoutCart"
+      });
     },
     updateQuantity(item, amt) {
       if (item.quantity + amt > 0) {

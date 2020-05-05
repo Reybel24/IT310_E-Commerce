@@ -55,7 +55,7 @@ export default {
   },
   watch: {
     cartItemsCount: function() {
-      console.log("cart updated!");
+      // console.log("cart updated!");
       this.isAnim = true;
     }
   }

@@ -91,7 +91,7 @@ export default {
       this.$emit("add-to-cart", this.data);
     },
     browseToProduct() {
-      var itemId = this.data.id;
+      var itemId = this.data.itemID;
       this.$router.push({ path: `products/${itemId}` });
     }
   }
