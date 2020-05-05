@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// Axios
+// import axios from 'axios';
+
 Vue.config.productionTip = false
 
 // Styles
