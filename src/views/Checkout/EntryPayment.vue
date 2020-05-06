@@ -13,19 +13,19 @@
       <div class="title strong">PAYMENT DETAILS</div>
       <div class="input">
         <div class="label">NAME ON CARD</div>
-        <input type="text" class="input-text" placeholder="4 Privet Drive" />
+        <input type="text" class="input-text" placeholder="Severus Snape" />
       </div>
       <div class="input">
         <div class="label">CARD NUMBER</div>
-        <input type="text" class="input-text" placeholder="Little Whinging" />
+        <input type="text" class="input-text" placeholder="4242 4242 4242 4242" />
       </div>
       <div class="input">
-        <div class="label">COUNTRY</div>
-        <input type="text" class="input-text" placeholder="Surrey" />
+        <div class="label">CVV</div>
+        <input type="text" class="input-text" placeholder="123" />
       </div>
       <div class="input">
-        <div class="label">ZIP CODE</div>
-        <input type="text" class="input-text" placeholder="09487" />
+        <div class="label">EXPIRATION</div>
+        <input type="text" class="input-text" placeholder="08/2025" />
       </div>
     </div>
 
