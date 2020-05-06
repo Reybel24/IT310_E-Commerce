@@ -151,6 +151,23 @@ export default new Vuex.Store({
           });
       })
     },
+    async fetchOrdersByName({ commit, state }, payload) {
+      return new Promise((resolve) => {
+        const formData = new FormData();
+        formData.append("postType", "get_order_by_name");
+        formData.append("fname", payload.firstName);
+        formData.append("lname", payload.lastName);
+        formData.append("zip", payload.zipCode);
+
+        axios.post(this.state.api_base, formData)
+          .then(response => {
+            // console.log(response.data);
+            resolve(response.data);
+          }, function (error) {
+            console.log(error);
+          });
+      })
+    },
     async checkoutCart({ commit, state }, payload) {
       return new Promise((resolve) => {
         const formData = new FormData();
