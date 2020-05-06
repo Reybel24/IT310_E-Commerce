@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="header strong">Hi, name</div>
+    <div class="welcome strong">Hi, {{ getCustomerName() }}</div>
     <div class="header strong">YOUR ORDERS</div>
     <div class="orders" v-if="isReady">
       <div class="order" v-for="(order, index) in this.orders" :key="index">
@@ -23,11 +23,15 @@
 
           <rounded-button
           name="RETURN"
-          v-on:press="pressAddToCart"
+          v-on:press="pressReturnItem"
           class="btn-return-item"
           :variant="'outline'"
         />
         </div>
+      </div>
+
+      <div class="empty" v-if="isReady && orders.length < 1">
+        Looks like you haven't ordered anything yet
       </div>
     </div>
   </div>
@@ -43,6 +47,8 @@ import { fetchProductImg } from "@/util/common.js";
 // For date times
 var moment = require('moment');
 
+import Vue from "vue";
+
 export default {
   name: "my-orders",
   components: {
@@ -57,12 +63,15 @@ export default {
   },
   methods: {
     async loadOrders() {
-      // console.log("getting orders...");
+      if (!Vue.$cookies.isKey("firstName")) {
+        return;
+      }
+
       var _orders = await this.$store.dispatch({
         type: "fetchOrdersByName",
-        firstName: "Hermonie",
-        lastName: "Granger",
-        zipCode: "12985"
+        firstName: Vue.$cookies.get("firstName"),
+        lastName: Vue.$cookies.get("lastName"),
+        zipCode: Vue.$cookies.get("zipCode")
       });
 
       // Group by order id
@@ -120,6 +129,12 @@ export default {
     formatDateTime(dateTime) {
       var _dateTime = new Date(dateTime);
       return moment(_dateTime, "MM-DD-YYYY");
+    },
+    pressReturnItem(item) {
+      console.log("returning item: " + item.name);
+    },
+    getCustomerName() {
+      return Vue.$cookies.get("firstName");
     }
   },
   async mounted() {
@@ -134,6 +149,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.welcome {
+  margin-bottom: 7px;
+}
 .header {
   margin-bottom: 20px;
   align-items: center;

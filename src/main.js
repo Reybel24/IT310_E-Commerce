@@ -23,6 +23,9 @@ import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 Vue.use(PerfectScrollbar)
 
+// Cookies
+Vue.use(require('vue-cookies'))
+
 new Vue({
   router,
   store,
