@@ -5,10 +5,15 @@
 <script>
 export default {
   name: "Home",
-  components: {}
+  components: {},
+  mounted() {
+    // Redirect
+    this.$router.push({
+      path: "products"
+    });
+  }
 };
 </script>
 
 <style scoped lang="scss">
-
 </style>
