@@ -110,7 +110,8 @@ export default {
           return true;
         }
       }
-
+      console.log("Not found!");
+      console.log(product);
       return false;
 
       // console.log(metadata)

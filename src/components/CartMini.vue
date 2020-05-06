@@ -95,6 +95,7 @@ export default {
       return require("@/assets/products/" + item.img);
     },
     pressGoToCheckout() {
+      this.close();
       this.$router.push({ path: 'checkout' });
     },
     updateQuantity(item, amt) {

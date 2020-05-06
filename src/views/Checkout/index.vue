@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="checkout">Welcome to checkout.</div>
+    <div class="header strong">CHECKOUT</div>
 
     <div class="main">
       <div class="section entry">
@@ -95,10 +95,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.header {
+  font-size: 1.3em;
+  color: rgb(83, 83, 83);
+}
 .main {
   flex-direction: row;
   min-height: 700px;
-  margin-top: 20px;
+  margin-top: 10px;
   justify-content: space-between;
 }
 .section {

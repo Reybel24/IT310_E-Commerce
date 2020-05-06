@@ -33,7 +33,7 @@ export default new Vuex.Store({
     removeFromCart(state, item) {
       // Find in cart
       state.cart.forEach(function (value, index) {
-        if (item.id == value.id) {
+        if (item.itemID == value.itemID) {
           state.cart.splice(index, 1);
         }
       });
