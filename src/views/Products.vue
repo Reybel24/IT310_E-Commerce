@@ -2,7 +2,7 @@
   <div class="products">
     <div class="header">Products > All (Showing {{ this.products.length }} items)</div>
     <div class="main">
-      <div class="filters"></div>
+      <div class="filters hide"></div>
       <div class="right">
         <div class="tags">
           <div
@@ -290,5 +290,9 @@ export default {
   color: $grey !important;
   width: 200px;
   border-top: 3px solid $purple !important;
+}
+
+.hide {
+  display: none;
 }
 </style>

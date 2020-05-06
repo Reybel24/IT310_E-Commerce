@@ -195,7 +195,7 @@ export default {
       this.productId = this.$route.params.id;
       this.product = await this.$store.dispatch({
         type: "fetchProduct",
-        id: parseInt(this.productId)
+        productId: parseInt(this.productId)
       });
 
       // Set ready
@@ -228,6 +228,7 @@ export default {
         type: "addItemToCart",
         item: this.product
       });
+      console.log(this.product)
       this.createToast(this.product.name + " added to cart!", this.product.img);
     },
     pressAddToList() {

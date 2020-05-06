@@ -19,6 +19,28 @@ const routes = [
     path: '/products/:id',
     name: 'Product',
     component: () => import(/* webpackChunkName: "product" */ '../views/Product.vue'),
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: () => import(/* webpackChunkName: "product" */ '../views/Checkout'),
+  },
+  {
+    path: '/order-complete',
+    name: 'OrderComplete',
+    component: () => import(/* webpackChunkName: "product" */ '../views/OrderComplete.vue'),
+    props: true
+  },
+  {
+    path: '/order-details',
+    name: 'OrderDetails',
+    component: () => import(/* webpackChunkName: "product" */ '../views/OrderDetails.vue'),
+    props: true
+  },
+  {
+    path: '/my-orders',
+    name: 'MyOrders',
+    component: () => import(/* webpackChunkName: "product" */ '../views/MyOrders.vue'),
   }
 ]
 

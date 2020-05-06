@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
     <div class="app-name strong">
-      <font-awesome-icon :icon="['fa', 'hat-cowboy']" class="icon" />Caps Locker
+      <font-awesome-icon :icon="['fa', 'hat-cowboy']" class="icon" />Sock & Monkey
     </div>
 
     <search-bar />
@@ -13,7 +13,8 @@
 
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/products">Products</router-link>
+      <router-link to="/products">Browse</router-link>
+      <router-link to="/my-orders">My Orders</router-link>
       <div class="cart" v-on:click="toggleShoppingCart()" :class="{ 'anim-grow-shrink': isAnim }">
         <font-awesome-icon :icon="['fa', 'shopping-bag']" class="icon" />
         <div class="text strong">{{ cartItemsCount }}</div>
@@ -36,7 +37,8 @@ export default {
   props: {},
   data() {
     return {
-      cartIsOpen: false
+      cartIsOpen: false,
+      isAnim: false
     };
   },
   components: {
@@ -55,7 +57,7 @@ export default {
   },
   watch: {
     cartItemsCount: function() {
-      console.log("cart updated!");
+      // console.log("cart updated!");
       this.isAnim = true;
     }
   }

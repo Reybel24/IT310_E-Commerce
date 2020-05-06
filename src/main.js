@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// Axios
+// import axios from 'axios';
+
 Vue.config.productionTip = false
 
 // Styles
@@ -19,6 +22,9 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 Vue.use(PerfectScrollbar)
+
+// Cookies
+Vue.use(require('vue-cookies'))
 
 new Vue({
   router,
