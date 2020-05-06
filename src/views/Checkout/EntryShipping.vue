@@ -22,7 +22,7 @@
       <div class="title strong">SHIPPING DETAILS</div>
       <div class="input">
         <div class="label">Street</div>
-        <input type="text" class="input-text" placeholder="4 Privet Drive" v-model="shipping.lastName" />
+        <input type="text" class="input-text" placeholder="4 Privet Drive" v-model="shipping.street" />
       </div>
       <div class="input">
         <div class="label">CITY</div>
