@@ -94,11 +94,8 @@ export default {
       }
       return require("@/assets/products/" + item.img);
     },
-    async pressGoToCheckout() {
-      console.log("Going to checkout.");
-      this.product = await this.$store.dispatch({
-        type: "checkoutCart"
-      });
+    pressGoToCheckout() {
+      this.$router.push({ path: 'checkout' });
     },
     updateQuantity(item, amt) {
       if (item.quantity + amt > 0) {
@@ -155,7 +152,7 @@ export default {
   },
   watch: {
     cartItemsCount: function() {
-      console.log("cart updated!");
+      // console.log("cart updated!");
       this.isAnim = true;
     }
   }

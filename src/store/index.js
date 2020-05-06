@@ -129,8 +129,23 @@ export default new Vuex.Store({
 
         axios.post(this.state.api_base, formData)
           .then(response => {
-            console.log(response.data[0]);
+            // console.log(response.data[0]);
             resolve(response.data[0]);
+          }, function (error) {
+            console.log(error);
+          });
+      })
+    },
+    async fetchOrderById({ commit, state }, payload) {
+      return new Promise((resolve) => {
+        const formData = new FormData();
+        formData.append("postType", "get_order");
+        formData.append("orderID", payload.orderID);
+
+        axios.post(this.state.api_base, formData)
+          .then(response => {
+            console.log(response.data);
+            resolve(response.data);
           }, function (error) {
             console.log(error);
           });
@@ -141,13 +156,16 @@ export default new Vuex.Store({
         const formData = new FormData();
         formData.append("postType", "place_order");
         formData.append("total", 35.07);
-        formData.append("fname", "Harry");
-        formData.append("lname", "Potter");
+        formData.append("fname", payload.shipping.firstName);
+        formData.append("lname", payload.shipping.lastName);
         formData.append("age", 22);
-        formData.append("address", "4 Privet Drive");
-        formData.append("city", "Little Whinging");
-        formData.append("state", "Surrey");
-        formData.append("zip", "07055");
+        formData.append("address", payload.shipping.street);
+        formData.append("city", payload.shipping.city);
+        formData.append("state", payload.shipping.state);
+        formData.append("zip", payload.shipping.zipCode);
+        formData.append("cart", JSON.stringify({results: payload.items }));
+        var testVar = {results: payload.items };
+        console.log(testVar)
 
         // Cart items
         console.log(this.state.cart);
