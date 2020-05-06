@@ -36,7 +36,8 @@ export default {
   props: {},
   data() {
     return {
-      cartIsOpen: false
+      cartIsOpen: false,
+      isAnim: false
     };
   },
   components: {
