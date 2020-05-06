@@ -4,9 +4,11 @@
       type="text"
       placeholder="blue beanie"
       class="test"
+      v-model="searchTerm"
       v-bind:style="{ backgroundImage: `url(require('@/asssets/search.png')` }"
+      v-on:keyup.enter="search"
     />
-    <div class="btn-search">
+    <div class="btn-search" @click="search">
       <font-awesome-icon :icon="['fa', 'search']" class="icon" />
     </div>
   </div>
@@ -17,7 +19,28 @@ export default {
   name: "search-bar",
   props: {},
   components: {},
-  methods: {}
+  data() {
+    return {
+      products: [],
+      searchTerm: "",
+      results: []
+    };
+  },
+  methods: {
+    search() {
+      this.$router
+        .push({
+          path: "products",
+          query: { searchTerm: this.searchTerm }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.searchTerm = this.$route.query.searchTerm;
+      this.$router.go(0);
+    }
+  },
+  mounted() {}
 };
 </script>
 

@@ -24,3 +24,22 @@ div {
     flex-direction: column;
     margin-top: 12px;
 }
+
+// Forms
+.input {
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .label {
+        font-size: 0.7em;
+        color: $grey;
+        margin-bottom: 7px;
+    }
+
+    .input-text {
+        height: 30px;
+        border: 1px solid rgb(204, 204, 204);
+        border-radius: 2px;
+        padding: 0 0 0 7px;
+    }
+}

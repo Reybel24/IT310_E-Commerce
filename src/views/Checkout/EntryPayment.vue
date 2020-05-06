@@ -29,6 +29,8 @@
       </div>
     </div>
 
+    <PayPal amount="0.02" currency="USD" :client="credentials" env="sandbox">></PayPal>
+
     <!-- Button: Go to checkout -->
     <rounded-button
       name="PLACE ORDER"
@@ -43,10 +45,14 @@
 // UI Components
 import RoundedButton from "@/components/UI/RoundedButton.vue";
 
+// Paypal
+import PayPal from "vue-paypal-checkout";
+
 export default {
   name: "entry-payment",
   components: {
-    RoundedButton
+    RoundedButton,
+    PayPal
   },
   props: {
     shipping: {
@@ -55,11 +61,24 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      paypal: {
+        sandbox: "<sandbox client id>",
+        production: "<production client id>"
+      },
+      credentials: {
+        sandbox: "<sandbox client id>",
+        production: "<production client id>"
+      }
+    };
+  },
   methods: {
     pressCompleteOrder() {
       this.$emit("complete-order");
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 

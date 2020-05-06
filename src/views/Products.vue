@@ -1,6 +1,6 @@
 <template>
   <div class="products">
-    <div class="header">Products > All (Showing {{ this.products.length }} items)</div>
+    <div class="header">Products > All (Showing {{ this.products_filtered.length }} item{{ (this.products_filtered.length > 1) ? "s" : "" }})</div>
     <div class="main">
       <div class="filters hide"></div>
       <div class="right">
@@ -13,7 +13,11 @@
             v-on:click="toggleTag(tag)"
           >{{ tag.name }}</div>
         </div>
-        <div class="mid-header">Products > All (Showing {{ this.products_filtered.length }} items)</div>
+        <div
+          class="mid-header"
+          v-if="didSearch"
+        >Showing results for {{ this.$route.query.searchTerm }}</div>
+        <div class="clear-search" v-if="didSearch" @click="clearSearch">Clear Search</div>
         <div class="products-results">
           <listed-product
             v-for="product in this.products_filtered"
@@ -50,6 +54,13 @@ export default {
   components: {
     ListedProduct,
     Toast
+  },
+  props: {
+    searchResults: {
+      type: Object,
+      default: null,
+      required: false
+    }
   },
   data() {
     return {
@@ -184,17 +195,48 @@ export default {
       });
       instance.$mount();
       this.$refs.toastsContainer.appendChild(instance.$el);
+    },
+    filterBySearch(term) {
+      console.log("searching for: " + this.searchTerm);
+      var results = this.products.filter(item =>
+        item.name.toLowerCase().includes(term.toLowerCase())
+      );
+      return results;
+    },
+    clearSearch() {
+      this.products_filtered = this.products;
+      this.$router.replace({
+        path: "products"
+      });
     }
   },
   async mounted() {
     // Fetch products
     await this.loadProducts();
 
+    const searchTerm = this.$route.query.searchTerm;
+    if (searchTerm != "" && searchTerm != undefined) {
+      this.products_filtered = this.filterBySearch(searchTerm);
+    } else {
+      await this.loadProducts();
+      this.products_filtered = this.products;
+    }
+
     // Generate some tags based on response
     this.generateTags();
 
     // Listen to product added event
     // EventBus.$on('item-added-to-cart', this.showToast());
+  },
+  computed: {
+    didSearch: function() {
+      var term = this.$route.query.searchTerm;
+      if (term != undefined && term != "" && term != null) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 };
 </script>
@@ -294,5 +336,11 @@ export default {
 
 .hide {
   display: none;
+}
+
+.clear-search {
+  cursor: pointer;
+  color: $purple;
+  font-size: 1.1em;
 }
 </style>
