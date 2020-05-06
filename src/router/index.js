@@ -41,7 +41,18 @@ const routes = [
     path: '/my-orders',
     name: 'MyOrders',
     component: () => import(/* webpackChunkName: "product" */ '../views/MyOrders.vue'),
-  }
+  },
+  {
+    path: '/sign-in',
+    name: 'SignIn',
+    component: () => import(/* webpackChunkName: "product" */ '../views/SignIn.vue'),
+  },
+  {
+    path: '/item-return',
+    name: 'ItemReturn',
+    component: () => import(/* webpackChunkName: "product" */ '../views/ItemReturn.vue'),
+    props: true
+  },
 ]
 
 const router = new VueRouter({

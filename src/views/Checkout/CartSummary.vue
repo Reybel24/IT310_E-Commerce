@@ -44,7 +44,7 @@
         <div class="value">$0</div>
       </div>
     </div>
-    <span class="small-text">You will only be charged <i>after</i> you have returned the items you don't want (if any) for the items you keep.</span>
+    <span class="small-text">You will only be charged for the items you keep <i>after</i> you have returned the items you don't want (if any).</span>
   </div>
 </template>
 

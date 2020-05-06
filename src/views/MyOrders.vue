@@ -2,9 +2,18 @@
   <div class="container">
     <div class="welcome strong">Hi, {{ getCustomerName() }}</div>
     <div class="header strong">YOUR ORDERS</div>
+    <div class="sub-header strong">
+      Not {{ getCustomerName() }}?
+      <span class="link" @click="goToSignIn">Sign in as someone else.</span>
+    </div>
     <div class="orders" v-if="isReady">
       <div class="order" v-for="(order, index) in this.orders" :key="index">
-        <div class="header">ORDER #{{ order[0].orderID }}<span class="date-time">ORDERED ON {{ formatDateTime(order[0].date_time) }}</span></div>
+        <div class="header">
+          ORDER #{{ order[0].orderID }}
+          <span
+            class="date-time"
+          >ORDERED ON {{ formatDateTime(order[0].date_time) }}</span>
+        </div>
         <div class="item" v-for="(item, index) in order" :key="index">
           <div class="img">
             <img :src="getProductImg(item)" />
@@ -22,17 +31,18 @@
           <div class="cost">${{ calcItemCost(item) }}</div>
 
           <rounded-button
-          name="RETURN"
-          v-on:press="pressReturnItem"
-          class="btn-return-item"
-          :variant="'outline'"
-        />
+            name="RETURN"
+            v-on:press="pressReturnItem(item)"
+            class="btn-return-item"
+            :variant="'outline'"
+          />
         </div>
       </div>
 
-      <div class="empty" v-if="isReady && orders.length < 1">
-        Looks like you haven't ordered anything yet
-      </div>
+      <div
+        class="empty"
+        v-if="isReady && orders.length < 1"
+      >Uh oh, looks like you haven't ordered anything yet.</div>
     </div>
   </div>
 </template>
@@ -45,7 +55,7 @@ import RoundedButton from "@/components/UI/RoundedButton.vue";
 import { fetchProductImg } from "@/util/common.js";
 
 // For date times
-var moment = require('moment');
+var moment = require("moment");
 
 import Vue from "vue";
 
@@ -74,6 +84,13 @@ export default {
         zipCode: Vue.$cookies.get("zipCode")
       });
 
+      console.log(_orders);
+      if (_orders[0] == "0") {
+        console.log("No orders found.");
+        this.orders = [];
+        return;
+      }
+
       // Group by order id
       var ordersGrouped = {};
       _orders.forEach(item => {
@@ -95,12 +112,11 @@ export default {
 
       this.orders = ordersGrouped;
 
-      console.log(this.orders);
+      // console.log(this.orders);
     },
     getProductDetails(product) {
       for (var item of this.allProducts) {
         if (product.itemID == item.itemID) {
-
           // Combine attributes
           product.name = item.name;
           product.img = item.img;
@@ -133,9 +149,18 @@ export default {
     },
     pressReturnItem(item) {
       console.log("returning item: " + item.name);
+      this.$router.push({
+        name: "ItemReturn",
+        params: { item: item }
+      });
     },
     getCustomerName() {
       return Vue.$cookies.get("firstName");
+    },
+    goToSignIn() {
+      this.$router.push({
+        path: "sign-in"
+      });
     }
   },
   async mounted() {
@@ -154,14 +179,28 @@ export default {
   margin-bottom: 7px;
 }
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   align-items: center;
 
   .date-time {
-    font-size: .7em;
+    font-size: 0.7em;
     color: rgb(182, 182, 182);
     margin-left: 18px;
   }
+}
+.sub-header {
+  margin-bottom: 20px;
+}
+
+.link {
+  color: $purple;
+  margin-left: 7px;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.link:hover {
+  opacity: 1;
 }
 .orders {
   flex-direction: column;

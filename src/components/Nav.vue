@@ -12,7 +12,7 @@
     </transition>
 
     <div id="nav">
-      <router-link to="/">Home</router-link>
+      <!-- <router-link to="/">Home</router-link> -->
       <router-link to="/products">Browse</router-link>
       <router-link to="/my-orders">My Orders</router-link>
       <div class="cart" v-on:click="toggleShoppingCart()" :class="{ 'anim-grow-shrink': isAnim }">
