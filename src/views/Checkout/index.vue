@@ -29,6 +29,8 @@ import EntryShipping from "./EntryShipping.vue";
 import EntryPayment from "./EntryPayment.vue";
 import CartSummary from "./CartSummary.vue";
 
+import Vue from "vue";
+
 export default {
   name: "checkout",
   components: {
@@ -77,6 +79,11 @@ export default {
         shipping: this.shipping,
         items: this.$store.getters.cart
       });
+
+      // Store name and data in cookie
+      Vue.$cookies.set("firstName", this.shipping.firstName);
+      Vue.$cookies.set("lastName", this.shipping.lastName);
+      Vue.$cookies.set("zipCode", this.shipping.zipCode);
 
       this.$router.push({
         name: "OrderComplete",
