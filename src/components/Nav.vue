@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
     <div class="app-name strong">
-      <font-awesome-icon :icon="['fa', 'hat-cowboy']" class="icon" />Caps Locker
+      <font-awesome-icon :icon="['fa', 'hat-cowboy']" class="icon" />Sock & Monkey
     </div>
 
     <search-bar />
@@ -13,7 +13,7 @@
 
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/products">Products</router-link>
+      <router-link to="/products">Browse</router-link>
       <router-link to="/my-orders">My Orders</router-link>
       <div class="cart" v-on:click="toggleShoppingCart()" :class="{ 'anim-grow-shrink': isAnim }">
         <font-awesome-icon :icon="['fa', 'shopping-bag']" class="icon" />
