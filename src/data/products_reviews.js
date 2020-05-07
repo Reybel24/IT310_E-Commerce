@@ -3,7 +3,7 @@ var data = {
         return [
             {
                 id: 0,
-                product_id: 7,
+                product_id: 8,
                 author_id: 0,
                 title: "Great suit!",
                 content: "This is simply the best suit I have ever worn. Seriously, its so stylish its ridiculous. Already ordered 40 more! 1 star off for price though.",
@@ -12,7 +12,7 @@ var data = {
             },
             {
                 id: 1,
-                product_id: 7,
+                product_id: 8,
                 author_id: 1,
                 title: "Meh",
                 content: "I've worn better suits",
@@ -21,7 +21,7 @@ var data = {
             },
             {
                 id: 2,
-                product_id: 7,
+                product_id: 8,
                 author_id: 2,
                 title: "Ripped after first wear",
                 content: "I am FURIOUS. After putting this suit on for the first time, it immediatly ripped.I know i'm kind of on the heavier side of the scale, however, this product is advertised to be made from the strongest cloth. I definitely will NOT be buying from this company again. Terrible. I'd give it 0 stars if I could. To anyone considering buying, STAY AWAY!!!",
@@ -30,7 +30,7 @@ var data = {
             },
             {
                 id: 3,
-                product_id: 7,
+                product_id: 8,
                 author_id: 3,
                 title: "Looks kinda trash",
                 content: "I'm gonna be honest, I haven't even purchased this suit and I'm reviewing it. I just feel like it would be pretty bad, especially judging from a couple of the other reviews I see on here. Because of that, I'm going to have to give this 2/5 stars, soryy.",
@@ -39,7 +39,7 @@ var data = {
             },
             {
                 id: 4,
-                product_id: 0,
+                product_id: 1,
                 author_id: 2,
                 title: "Great",
                 content: "Yep its a cap alright.",
@@ -48,7 +48,7 @@ var data = {
             },
             {
                 id: 5,
-                product_id: 0,
+                product_id: 14,
                 author_id: 1,
                 title: "Not bad",
                 content: "Nice color, nice fit. Would buy again",
@@ -57,7 +57,7 @@ var data = {
             },
             {
                 id: 6,
-                product_id: 15,
+                product_id: 16,
                 author_id: 4,
                 title: "More than an accessory",
                 content: "Before I bought this belt, my wife was thinking of leaving me and my children thought their father was a pure loser. However, that is NO longer the case. Ever since I bought this belt, my wife and her boyfriend now see me for the MAN that I am. My children know their pops got the cash. Life has never been better.",
@@ -66,7 +66,7 @@ var data = {
             },
             {
                 id: 6,
-                product_id: 15,
+                product_id: 16,
                 author_id: 5,
                 title: "I was skeptical",
                 content: "I will admit, after reading a couple reviews, I was skeptical but I went ahead and bought it anyway. I figured what do I have to lose but a couple thousand dollars, right? So end of the week comes and I recieve my order. I open the box and put it on and I immediatly knew what all the hype was about. Ordering 2 more.",
@@ -75,7 +75,7 @@ var data = {
             },
             {
                 id: 7,
-                product_id: 10,
+                product_id: 6,
                 author_id: 5,
                 title: "Very stylish indeed",
                 content: "The name doesn't lie. Soft and stylish just as advertised. No complaints here.",
@@ -93,7 +93,7 @@ var data = {
             },
             {
                 id: 9,
-                product_id: 2,
+                product_id: 18,
                 author_id: 3,
                 title: "Anything  but \"Gucci\"",
                 content: "I bought these as a gift for my sister's 17th birthday and within a month the heel of the left shoe had broken off. Currenty trying to contact the company for a refund but they won't even pick up the phone!",

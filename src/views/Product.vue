@@ -65,7 +65,7 @@
             v-for="(prod, index) in relatedProducts"
             :key="index"
             @mousedown="startClickTimer(prod.id)"
-            @mouseup="browseToProduct(prod.id)"
+            @mouseup="browseToProduct(prod.itemID)"
           >
             <div class="img">
               <img :src="getProductImg(prod)" />
