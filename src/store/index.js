@@ -12,7 +12,7 @@ const axios = require('axios');
 // import router from "@/router/index,js";
 
 // Common utility functions
-import { delay, getProducts, getProduct, fetchProductImg, getProductReviews, getUser, getUserImg, getRelatedProducts } from "@/util/common.js";
+import { delay, getProducts, getProduct, fetchProductImg, getProductReviews, getUser, getUserImg, getRelatedProducts, randomNumberBetween } from "@/util/common.js";
 
 export default new Vuex.Store({
   state: {
@@ -180,8 +180,8 @@ export default new Vuex.Store({
         formData.append("city", payload.shipping.city);
         formData.append("state", payload.shipping.state);
         formData.append("zip", payload.shipping.zipCode);
-        formData.append("cart", JSON.stringify({results: payload.items }));
-        var testVar = {results: payload.items };
+        formData.append("cart", JSON.stringify({ results: payload.items }));
+        var testVar = { results: payload.items };
         console.log(testVar)
 
         // Cart items
@@ -232,6 +232,37 @@ export default new Vuex.Store({
       return prodImg;
     },
     async fetchRelatedProducts({ commit, state }, payload) {
+      // Simulate network delay
+      await delay(500);
+
+      // Get all products
+      var allProducts = await this.dispatch({
+        type: "fetchProducts",
+      });
+
+      // Generate random number
+      var related = [];
+
+      var numProducts = randomNumberBetween(0, 8);
+      for (var i = 0; i < numProducts; i++) {
+        var randProd = allProducts[randomNumberBetween(0, allProducts.length - 1)];
+
+        // Check if already in list
+        for (var prod of related) {
+          console.log(randProd);
+          console.log(prod);
+          if (randProd.itemID == prod.itemID) {
+            continue;
+          }
+        }
+
+        // Add to list
+        related.push(randProd);
+      }
+      console.log(related)
+      return related;
+    },
+    async fetchRelatedProductsLocal({ commit, state }, payload) {
       // Simulate network delay
       await delay(500);
 
