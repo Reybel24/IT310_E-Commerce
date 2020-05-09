@@ -26,15 +26,15 @@
       </div>
       <div class="input">
         <div class="label">CITY</div>
-        <input type="text" class="input-text" placeholder="4 Privet Drive" v-model="shipping.city" />
+        <input type="text" class="input-text" placeholder="Little Whinging" v-model="shipping.city" />
       </div>
       <div class="input">
         <div class="label">STATE</div>
-        <input type="text" class="input-text" placeholder="Little Whinging" v-model="shipping.state" />
+        <input type="text" class="input-text" placeholder="Surrey" v-model="shipping.state" />
       </div>
       <div class="input">
         <div class="label">COUNTRY</div>
-        <input type="text" class="input-text" placeholder="Surrey" v-model="shipping.country" />
+        <input type="text" class="input-text" placeholder="United Kingdom" v-model="shipping.country" />
       </div>
       <div class="input">
         <div class="label">ZIP CODE</div>
@@ -64,14 +64,14 @@ export default {
   data() {
     return {
       shipping: {
-        firstName: "Hermonie",
-        lastName: "Granger",
-        email: "hgranger@hogwarts.edu",
-        street: "4 Privet Drive",
-        city: "Lala Land",
-        state: "Wizard City",
-        country: "Hogwarts",
-        zipCode: "12985"
+        firstName: "",
+        lastName: "",
+        email: "",
+        street: "",
+        city: "",
+        state: "",
+        country: "",
+        zipCode: ""
       }
     };
   },
